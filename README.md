@@ -25,14 +25,14 @@ Conçu spécialement pour le Lycée Sainte Chantal Soanierana, le projet répond
 - php artisan serve
 
 ## DOCUMENTATIONS SUPPLEMENTAIRES
-- Documentation (pas à jour pour la version 12) très complète sur Laravel 
-[doc devdocs](https://devdocs.io/laravel~11/)
+- Documentation (pas à jour pour la version 12) très complète sur Laravel : 
+[documentation devdocs](https://devdocs.io/laravel~11/)
 
-- Les relations dans Eloquent : l'ORM de Laravel
-[cardinalités](https://kinsta.com/fr/blog/relations-laravel-eloquent/)
+- Les relations dans Eloquent, l'ORM de Laravel : 
+[cardinalités Eloquent](https://kinsta.com/fr/blog/relations-laravel-eloquent/)
 
-- CRUD simple avec Laravel
-[CRUD](https://kinsta.com/fr/blog/crud-laravel/)
+- CRUD simple avec Laravel : 
+[CRUD avec Laravel](https://kinsta.com/fr/blog/crud-laravel/) avec son 
 [repository GitHub](https://github.com/VirtuaCreative/kinsta-laravel-crud)
 
 
