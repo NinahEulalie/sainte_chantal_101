@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 26, 2026 at 12:39 AM
+-- Generation Time: Jan 28, 2026 at 12:14 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,10 +24,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `absence`
+-- Table structure for table `absences`
 --
 
-CREATE TABLE `absence` (
+CREATE TABLE `absences` (
   `id_absence` int(11) NOT NULL,
   `date_absence` date NOT NULL,
   `nom_matiere` varchar(50) NOT NULL,
@@ -37,10 +37,10 @@ CREATE TABLE `absence` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `anneescolaire`
+-- Table structure for table `anneescolaires`
 --
 
-CREATE TABLE `anneescolaire` (
+CREATE TABLE `anneescolaires` (
   `id_annee` int(11) NOT NULL,
   `date_debut` date NOT NULL,
   `date_fin` date NOT NULL,
@@ -50,10 +50,10 @@ CREATE TABLE `anneescolaire` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `classe`
+-- Table structure for table `classes`
 --
 
-CREATE TABLE `classe` (
+CREATE TABLE `classes` (
   `id_classe` int(11) NOT NULL,
   `nom_classe` varchar(10) NOT NULL,
   `effectif` int(11) NOT NULL,
@@ -63,10 +63,10 @@ CREATE TABLE `classe` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ecolage`
+-- Table structure for table `ecolages`
 --
 
-CREATE TABLE `ecolage` (
+CREATE TABLE `ecolages` (
   `id_ecolage` int(11) NOT NULL,
   `mois` varchar(10) NOT NULL,
   `montant_ecolage` int(11) NOT NULL,
@@ -77,10 +77,10 @@ CREATE TABLE `ecolage` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `eleve`
+-- Table structure for table `eleves`
 --
 
-CREATE TABLE `eleve` (
+CREATE TABLE `eleves` (
   `id_eleve` int(11) NOT NULL,
   `matricule` int(11) NOT NULL,
   `nom` varchar(100) NOT NULL,
@@ -99,10 +99,10 @@ CREATE TABLE `eleve` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `evaluation`
+-- Table structure for table `evaluations`
 --
 
-CREATE TABLE `evaluation` (
+CREATE TABLE `evaluations` (
   `id_evaluation` int(11) NOT NULL,
   `type_evaluation` varchar(50) NOT NULL,
   `date_debut` date NOT NULL,
@@ -132,10 +132,10 @@ CREATE TABLE `frais` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `infirmerie`
+-- Table structure for table `infirmeries`
 --
 
-CREATE TABLE `infirmerie` (
+CREATE TABLE `infirmeries` (
   `id_infirmerie` int(11) NOT NULL,
   `date` date NOT NULL,
   `description` varchar(500) NOT NULL,
@@ -147,10 +147,10 @@ CREATE TABLE `infirmerie` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `inscription`
+-- Table structure for table `inscriptions`
 --
 
-CREATE TABLE `inscription` (
+CREATE TABLE `inscriptions` (
   `id_inscription` int(11) NOT NULL,
   `montant_total` int(11) NOT NULL,
   `montant_paye` int(11) NOT NULL,
@@ -161,10 +161,10 @@ CREATE TABLE `inscription` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `matiere`
+-- Table structure for table `matieres`
 --
 
-CREATE TABLE `matiere` (
+CREATE TABLE `matieres` (
   `id_matiere` int(11) NOT NULL,
   `nom_matiere` varchar(100) NOT NULL,
   `nom_prof` varchar(100) NOT NULL,
@@ -176,42 +176,10 @@ CREATE TABLE `matiere` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `parascolaire`
+-- Table structure for table `parapointages`
 --
 
-CREATE TABLE `parascolaire` (
-  `id_para` int(11) NOT NULL,
-  `activite_choisie` int(11) NOT NULL,
-  `frai_para` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `parent`
---
-
-CREATE TABLE `parent` (
-  `id_parent` int(11) NOT NULL,
-  `matricule_parent` int(11) NOT NULL,
-  `nom_pere` varchar(200) NOT NULL,
-  `profession_pere` varchar(50) NOT NULL,
-  `nom_mere` varchar(200) NOT NULL,
-  `profession_mere` varchar(50) NOT NULL,
-  `nom_tuteur` varchar(200) NOT NULL,
-  `profession_tuteur` varchar(50) NOT NULL,
-  `telephone` int(11) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `adresse_parent` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `participer`
---
-
-CREATE TABLE `participer` (
+CREATE TABLE `parapointages` (
   `id_para` int(11) NOT NULL,
   `id_eleve` int(11) NOT NULL,
   `date` date NOT NULL,
@@ -222,10 +190,22 @@ CREATE TABLE `participer` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `personnel`
+-- Table structure for table `parascolaires`
 --
 
-CREATE TABLE `personnel` (
+CREATE TABLE `parascolaires` (
+  `id_para` int(11) NOT NULL,
+  `activite_choisie` int(11) NOT NULL,
+  `frai_para` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `personnels`
+--
+
+CREATE TABLE `personnels` (
   `id_personnel` int(11) NOT NULL,
   `nom_personnel` varchar(100) NOT NULL,
   `prenom_personnel` varchar(100) NOT NULL,
@@ -239,10 +219,10 @@ CREATE TABLE `personnel` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sanction`
+-- Table structure for table `sanctions`
 --
 
-CREATE TABLE `sanction` (
+CREATE TABLE `sanctions` (
   `id_sancion` int(11) NOT NULL,
   `type_sanction` varchar(50) NOT NULL,
   `motif` varchar(200) NOT NULL,
@@ -255,10 +235,10 @@ CREATE TABLE `sanction` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sortieanticipee`
+-- Table structure for table `sortieanticipees`
 --
 
-CREATE TABLE `sortieanticipee` (
+CREATE TABLE `sortieanticipees` (
   `id_sortie` int(11) NOT NULL,
   `motif` varchar(500) NOT NULL,
   `date_sortie` date NOT NULL,
@@ -267,40 +247,60 @@ CREATE TABLE `sortieanticipee` (
   `id_eleve` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `studentparents`
+--
+
+CREATE TABLE `studentparents` (
+  `id_parent` int(11) NOT NULL,
+  `matricule_parent` int(11) NOT NULL,
+  `nom_pere` varchar(200) NOT NULL,
+  `profession_pere` varchar(50) NOT NULL,
+  `nom_mere` varchar(200) NOT NULL,
+  `profession_mere` varchar(50) NOT NULL,
+  `nom_tuteur` varchar(200) NOT NULL,
+  `profession_tuteur` varchar(50) NOT NULL,
+  `telephone` int(11) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `adresse_parent` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `absence`
+-- Indexes for table `absences`
 --
-ALTER TABLE `absence`
+ALTER TABLE `absences`
   ADD PRIMARY KEY (`id_absence`),
   ADD KEY `id_eleve` (`id_eleve`);
 
 --
--- Indexes for table `anneescolaire`
+-- Indexes for table `anneescolaires`
 --
-ALTER TABLE `anneescolaire`
+ALTER TABLE `anneescolaires`
   ADD PRIMARY KEY (`id_annee`);
 
 --
--- Indexes for table `classe`
+-- Indexes for table `classes`
 --
-ALTER TABLE `classe`
+ALTER TABLE `classes`
   ADD PRIMARY KEY (`id_classe`);
 
 --
--- Indexes for table `ecolage`
+-- Indexes for table `ecolages`
 --
-ALTER TABLE `ecolage`
+ALTER TABLE `ecolages`
   ADD PRIMARY KEY (`id_ecolage`),
   ADD KEY `id_eleve` (`id_eleve`);
 
 --
--- Indexes for table `eleve`
+-- Indexes for table `eleves`
 --
-ALTER TABLE `eleve`
+ALTER TABLE `eleves`
   ADD PRIMARY KEY (`id_eleve`),
   ADD KEY `id_annee` (`id_annee`),
   ADD KEY `id_parent` (`id_parent`),
@@ -308,9 +308,9 @@ ALTER TABLE `eleve`
   ADD KEY `id_personnel` (`id_personnel`);
 
 --
--- Indexes for table `evaluation`
+-- Indexes for table `evaluations`
 --
-ALTER TABLE `evaluation`
+ALTER TABLE `evaluations`
   ADD PRIMARY KEY (`id_evaluation`);
 
 --
@@ -321,134 +321,134 @@ ALTER TABLE `frais`
   ADD KEY `id_eleve` (`id_eleve`);
 
 --
--- Indexes for table `infirmerie`
+-- Indexes for table `infirmeries`
 --
-ALTER TABLE `infirmerie`
+ALTER TABLE `infirmeries`
   ADD PRIMARY KEY (`id_infirmerie`),
   ADD KEY `id_eleve` (`id_eleve`);
 
 --
--- Indexes for table `inscription`
+-- Indexes for table `inscriptions`
 --
-ALTER TABLE `inscription`
+ALTER TABLE `inscriptions`
   ADD PRIMARY KEY (`id_inscription`),
   ADD KEY `id_frais` (`id_frais`);
 
 --
--- Indexes for table `matiere`
+-- Indexes for table `matieres`
 --
-ALTER TABLE `matiere`
+ALTER TABLE `matieres`
   ADD PRIMARY KEY (`id_matiere`),
   ADD KEY `id_evaluation` (`id_evaluation`),
   ADD KEY `id_classe` (`id_classe`);
 
 --
--- Indexes for table `parascolaire`
+-- Indexes for table `parapointages`
 --
-ALTER TABLE `parascolaire`
-  ADD PRIMARY KEY (`id_para`);
-
---
--- Indexes for table `parent`
---
-ALTER TABLE `parent`
-  ADD PRIMARY KEY (`id_parent`);
-
---
--- Indexes for table `participer`
---
-ALTER TABLE `participer`
+ALTER TABLE `parapointages`
   ADD KEY `id_para` (`id_para`),
   ADD KEY `id_eleve` (`id_eleve`);
 
 --
--- Indexes for table `personnel`
+-- Indexes for table `parascolaires`
 --
-ALTER TABLE `personnel`
+ALTER TABLE `parascolaires`
+  ADD PRIMARY KEY (`id_para`);
+
+--
+-- Indexes for table `personnels`
+--
+ALTER TABLE `personnels`
   ADD PRIMARY KEY (`id_personnel`);
 
 --
--- Indexes for table `sanction`
+-- Indexes for table `sanctions`
 --
-ALTER TABLE `sanction`
+ALTER TABLE `sanctions`
   ADD PRIMARY KEY (`id_sancion`),
   ADD KEY `id_eleve` (`id_eleve`);
 
 --
--- Indexes for table `sortieanticipee`
+-- Indexes for table `sortieanticipees`
 --
-ALTER TABLE `sortieanticipee`
+ALTER TABLE `sortieanticipees`
   ADD PRIMARY KEY (`id_sortie`),
   ADD KEY `id_eleve` (`id_eleve`);
+
+--
+-- Indexes for table `studentparents`
+--
+ALTER TABLE `studentparents`
+  ADD PRIMARY KEY (`id_parent`);
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `absence`
+-- Constraints for table `absences`
 --
-ALTER TABLE `absence`
-  ADD CONSTRAINT `absence_ibfk_1` FOREIGN KEY (`id_eleve`) REFERENCES `eleve` (`id_eleve`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `absences`
+  ADD CONSTRAINT `absences_ibfk_1` FOREIGN KEY (`id_eleve`) REFERENCES `eleves` (`id_eleve`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `ecolage`
+-- Constraints for table `ecolages`
 --
-ALTER TABLE `ecolage`
-  ADD CONSTRAINT `ecolage_ibfk_1` FOREIGN KEY (`id_eleve`) REFERENCES `eleve` (`id_eleve`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `ecolages`
+  ADD CONSTRAINT `ecolages_ibfk_1` FOREIGN KEY (`id_eleve`) REFERENCES `eleves` (`id_eleve`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `eleve`
+-- Constraints for table `eleves`
 --
-ALTER TABLE `eleve`
-  ADD CONSTRAINT `eleve_ibfk_1` FOREIGN KEY (`id_parent`) REFERENCES `parent` (`id_parent`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `eleve_ibfk_2` FOREIGN KEY (`id_personnel`) REFERENCES `personnel` (`id_personnel`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `eleve_ibfk_3` FOREIGN KEY (`id_classe`) REFERENCES `classe` (`id_classe`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `eleve_ibfk_5` FOREIGN KEY (`id_annee`) REFERENCES `anneescolaire` (`id_annee`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `eleves`
+  ADD CONSTRAINT `eleves_ibfk_1` FOREIGN KEY (`id_parent`) REFERENCES `studentparents` (`id_parent`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `eleves_ibfk_2` FOREIGN KEY (`id_personnel`) REFERENCES `personnels` (`id_personnel`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `eleves_ibfk_3` FOREIGN KEY (`id_classe`) REFERENCES `classes` (`id_classe`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `eleves_ibfk_5` FOREIGN KEY (`id_annee`) REFERENCES `anneescolaires` (`id_annee`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `frais`
 --
 ALTER TABLE `frais`
-  ADD CONSTRAINT `frais_ibfk_1` FOREIGN KEY (`id_eleve`) REFERENCES `eleve` (`id_eleve`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `frais_ibfk_1` FOREIGN KEY (`id_eleve`) REFERENCES `eleves` (`id_eleve`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `infirmerie`
+-- Constraints for table `infirmeries`
 --
-ALTER TABLE `infirmerie`
-  ADD CONSTRAINT `infirmerie_ibfk_1` FOREIGN KEY (`id_eleve`) REFERENCES `eleve` (`id_eleve`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `infirmeries`
+  ADD CONSTRAINT `infirmeries_ibfk_1` FOREIGN KEY (`id_eleve`) REFERENCES `eleves` (`id_eleve`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `inscription`
+-- Constraints for table `inscriptions`
 --
-ALTER TABLE `inscription`
-  ADD CONSTRAINT `inscription_ibfk_1` FOREIGN KEY (`id_frais`) REFERENCES `frais` (`id_frais`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `inscriptions`
+  ADD CONSTRAINT `inscriptions_ibfk_1` FOREIGN KEY (`id_frais`) REFERENCES `frais` (`id_frais`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `matiere`
+-- Constraints for table `matieres`
 --
-ALTER TABLE `matiere`
-  ADD CONSTRAINT `matiere_ibfk_1` FOREIGN KEY (`id_evaluation`) REFERENCES `evaluation` (`id_evaluation`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `matiere_ibfk_2` FOREIGN KEY (`id_classe`) REFERENCES `classe` (`id_classe`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `matieres`
+  ADD CONSTRAINT `matieres_ibfk_1` FOREIGN KEY (`id_evaluation`) REFERENCES `evaluations` (`id_evaluation`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `matieres_ibfk_2` FOREIGN KEY (`id_classe`) REFERENCES `classes` (`id_classe`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `participer`
+-- Constraints for table `parapointages`
 --
-ALTER TABLE `participer`
-  ADD CONSTRAINT `participer_ibfk_1` FOREIGN KEY (`id_para`) REFERENCES `parascolaire` (`id_para`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `participer_ibfk_2` FOREIGN KEY (`id_eleve`) REFERENCES `eleve` (`id_eleve`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `parapointages`
+  ADD CONSTRAINT `parapointages_ibfk_1` FOREIGN KEY (`id_para`) REFERENCES `parascolaires` (`id_para`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `parapointages_ibfk_2` FOREIGN KEY (`id_eleve`) REFERENCES `eleves` (`id_eleve`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `sanction`
+-- Constraints for table `sanctions`
 --
-ALTER TABLE `sanction`
-  ADD CONSTRAINT `sanction_ibfk_1` FOREIGN KEY (`id_eleve`) REFERENCES `eleve` (`id_eleve`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `sanctions`
+  ADD CONSTRAINT `sanctions_ibfk_1` FOREIGN KEY (`id_eleve`) REFERENCES `eleves` (`id_eleve`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `sortieanticipee`
+-- Constraints for table `sortieanticipees`
 --
-ALTER TABLE `sortieanticipee`
-  ADD CONSTRAINT `sortieanticipee_ibfk_1` FOREIGN KEY (`id_eleve`) REFERENCES `eleve` (`id_eleve`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `sortieanticipees`
+  ADD CONSTRAINT `sortieanticipees_ibfk_1` FOREIGN KEY (`id_eleve`) REFERENCES `eleves` (`id_eleve`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
