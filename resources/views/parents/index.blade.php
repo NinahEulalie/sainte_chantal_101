@@ -9,6 +9,7 @@
 <table class="table table-bordered table-striped">
     <thead class="table-dark">
         <tr>
+            <th>Matricule</th>
             <th>Père</th>
             <th>Mère</th>
             <th>Téléphone</th>
@@ -25,9 +26,9 @@
             <td>{{ $parent->telephone }}</td>
             <td>{{ $parent->email }}</td>
             <td>
-                <a href="{{ route('parents.show', $parent->id) }}" class="btn btn-info btn-sm">Voir</a>
-                <a href="{{ route('parents.edit', $parent->id) }}" class="btn btn-warning btn-sm">Modifier</a>
-                <form action="{{ route('parents.destroy', $parent->id) }}" method="POST" class="d-inline">
+                <a href="{{ route('parents.show', $parent->id_parent) }}" class="btn btn-info btn-sm">Voir</a>
+                <a href="{{ route('parents.edit', $parent->id_parent) }}" class="btn btn-warning btn-sm">Modifier</a>
+                <form action="{{ route('parents.destroy', $parent->id_parent) }}" method="POST" class="d-inline">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-danger btn-sm">Supprimer</button>

@@ -3,7 +3,7 @@
 @section('content')
 <h2>Modifier Parent</h2>
 
-<form action="{{ route('parents.update', $parent->id) }}" method="POST" class="card p-4 shadow-sm">
+<form action="{{ route('parents.update', $parent->id_parent) }}" method="POST" class="card p-4 shadow-sm">
     @csrf
     @method('PUT')
 

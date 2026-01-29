@@ -13,6 +13,10 @@ class StudentParent extends Model
 
     protected $primaryKey = 'id_parent';
 
+    public $incrementing = true;
+
+    protected $keyType = 'int';
+
     public $timestamps = false; // si ta table n'a pas created_at / updated_at
 
     protected $fillable = [

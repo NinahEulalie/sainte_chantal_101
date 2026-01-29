@@ -7,17 +7,20 @@ use App\Models\StudentParent;
 
 class ParentController extends Controller
 {
+    // listage - READ
     public function index()
     {
         $parents = StudentParent::all();
         return view('parents.index', compact('parents'));
     }
 
+    // afficher le formulaire de création(insertion)
     public function create()
     {
         return view('parents.create');
     }
 
+    // insertion - CREATE
     public function store(Request $request)
     {
         $request->validate([
@@ -39,35 +42,39 @@ class ParentController extends Controller
             ->with('success', 'Parent ajouté avec succès.');
     }
 
-    public function show(StudentParent $studentParent)
+    // afficher une ressource spécifiée
+    public function show($id_parent)
     {
-        // $parent = StudentParent::findOrFail($id);
-        return view('parents.show', compact('studentParent'));
+        $parent = StudentParent::find($id_parent);
+        return view('parents.show', compact('parent'));
     }
 
-    public function edit($id)
+    // afficher le formulaire pour la modification
+    public function edit($id_parent)
     {
-        $parent = StudentParent::findOrFail($id);
+        $parent = StudentParent::find($id_parent);
         return view('parents.edit', compact('parent'));
     }
 
-    public function update(Request $request, $id)
+    // modification - UPDATE
+    public function update(Request $request, $id_parent)
     {
         $request->validate([
             'telephone' => 'required|string|max:20',
             'adresse_parent' => 'required|string',
         ]);
 
-        $parent = StudentParent::findOrFail($id);
+        $parent = StudentParent::find($id_parent);
         $parent->update($request->all());
 
         return redirect()->route('parents.index')
             ->with('success', 'Parent modifié avec succès.');
     }
 
-    public function destroy($id)
+    // suppression - DELETE
+    public function destroy($id_parent)
     {
-        $parent = StudentParent::findOrFail($id);
+        $parent = StudentParent::find($id_parent);
         $parent->delete();
 
         return redirect()->route('parents.index')
