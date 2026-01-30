@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Gestion des Parents</title>
+    <title>Sainte Chantal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap 5 CDN -->
@@ -12,7 +12,7 @@
 
 <nav class="navbar navbar-dark bg-dark mb-4">
     <div class="container">
-        <a class="navbar-brand" href="{{ route('parents.index') }}">Gestion Parents</a>
+        <a class="navbar-brand" href="{{ route('home') }}">Gestion Scolaire</a>
     </div>
 </nav>
 
