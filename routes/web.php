@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ParentController;
 use App\Http\Controllers\AnneeController;
+use App\Http\Controllers\ClasseController;
 
 
 Route::get('/', function () {
@@ -40,3 +41,13 @@ Route::get('/anneescolaires/{annee}', AnneeController::class .'@show')->name('an
 Route::get('/anneescolaires/{annee}/edit', AnneeController::class .'@edit')->name('anneescolaires.edit');
 Route::put('/anneescolaires/{annee}', AnneeController::class .'@update')->name('anneescolaires.update');
 Route::delete('/anneescolaires/{annee}', AnneeController::class .'@destroy')->name('anneescolaires.destroy');
+
+
+    // CLASSES
+Route::get('/classes/index', ClasseController::class .'@index')->name('classes.index');
+Route::get('/classes/create', ClasseController::class . '@create')->name('classes.create');
+Route::post('/classes', ClasseController::class .'@store')->name('classes.store');
+Route::get('/classes/{classe}', ClasseController::class .'@show')->name('classes.show');
+Route::get('/classes/{classe}/edit', ClasseController::class .'@edit')->name('classes.edit');
+Route::put('/classes/{classe}', ClasseController::class .'@update')->name('classes.update');
+Route::delete('/classes/{classe}', ClasseController::class .'@destroy')->name('classes.destroy');
