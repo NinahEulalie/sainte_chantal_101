@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ParentController;
 use App\Http\Controllers\AnneeController;
 use App\Http\Controllers\ClasseController;
+use App\Http\Controllers\ParascolaireController;
 
 
 Route::get('/', function () {
@@ -51,3 +52,13 @@ Route::get('/classes/{classe}', ClasseController::class .'@show')->name('classes
 Route::get('/classes/{classe}/edit', ClasseController::class .'@edit')->name('classes.edit');
 Route::put('/classes/{classe}', ClasseController::class .'@update')->name('classes.update');
 Route::delete('/classes/{classe}', ClasseController::class .'@destroy')->name('classes.destroy');
+
+
+// PARASCOLAIRES
+Route::get('/parascolaires/index', ParascolaireController::class .'@index')->name('parascolaires.index');
+Route::get('/parascolaires/create', ParascolaireController::class . '@create')->name('parascolaires.create');
+Route::post('/parascolaires', ParascolaireController::class .'@store')->name('parascolaires.store');
+Route::get('/parascolaires/{parascolaire}', ParascolaireController::class .'@show')->name('parascolaires.show');
+Route::get('/parascolaires/{parascolaire}/edit', ParascolaireController::class .'@edit')->name('parascolaires.edit');
+Route::put('/parascolaires/{parascolaire}', ParascolaireController::class .'@update')->name('parascolaires.update');
+Route::delete('/parascolaires/{parascolaire}', ParascolaireController::class .'@destroy')->name('parascolaires.destroy');

@@ -21,8 +21,24 @@
 
         <div class="col-md-6 mb-3">
             <label>Niveau</label>
-            <input type="text" name="niveau" class="form-control"
-                value="{{ old('niveau', $classe->niveau ?? '') }}" required>
+            <select name="niveau" class="form-select" required>
+                <option value="">-- Choisir un niveau --</option>
+
+                <option value="primaire"
+                    {{ old('niveau', $classe->niveau ?? '') == 'Primaire' ? 'selected' : '' }}>
+                    Primaire
+                </option>
+
+                <option value="college"
+                    {{ old('niveau', $classe->niveau ?? '') == 'Collège' ? 'selected' : '' }}>
+                    Collège
+                </option>
+
+                <option value="lycee"
+                    {{ old('niveau', $classe->niveau ?? '') == 'Lycée' ? 'selected' : '' }}>
+                    Lycée
+                </option>
+            </select>
         </div>
     </div>
 

@@ -8,7 +8,7 @@
 
     <p><strong>Effectif :</strong> {{ $classe->effectif }}</p>
 
-    <p><strong>Date de fin :</strong> {{ $classe->niveau }}</p>
+    <p><strong>Niveau :</strong> {{ $classe->niveau }}</p>
 
     <a href="{{ route('classes.index') }}" class="btn btn-secondary">Retour</a>
 </div>

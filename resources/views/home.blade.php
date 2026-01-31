@@ -34,6 +34,15 @@
             </a>
         </div>
     </div>
+
+    <div class="col-md-4">
+        <div class="card shadow text-center p-4">
+            <h4> Parascolaires</h4>
+            <a href="{{ route('parascolaires.index') }}" class="btn btn-primary mt-3">
+                Accéder
+            </a>
+        </div>
+    </div>
 </div>
 
 @endsection
