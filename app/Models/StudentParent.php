@@ -31,4 +31,10 @@ class StudentParent extends Model
         'email',
         'adresse_parent',
     ];
+
+    // Relation parent-eleve
+    public function eleves()
+    {
+        return $this->hasMany(Eleve::class, 'id_parent', 'id_parent');
+    }
 }

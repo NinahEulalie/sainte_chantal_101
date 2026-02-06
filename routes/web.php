@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ParentController;
+use App\Http\Controllers\EleveController;
 use App\Http\Controllers\AnneeController;
 use App\Http\Controllers\ClasseController;
 use App\Http\Controllers\ParascolaireController;
@@ -32,6 +33,16 @@ Route::put('/parents/{parent}', ParentController::class .'@update')->name('paren
 
 // deletes a parent
 Route::delete('/parents/{parent}', ParentController::class .'@destroy')->name('parents.destroy');
+
+
+// ELEVES
+Route::get('/eleves/index', EleveController::class .'@index')->name('eleves.index');
+Route::get('/eleves/create', EleveController::class . '@create')->name('eleves.create');
+Route::post('/eleves', EleveController::class .'@store')->name('eleves.store');
+Route::get('/eleves/{eleve}', EleveController::class .'@show')->name('eleves.show');
+Route::get('/eleves/{eleve}/edit', EleveController::class .'@edit')->name('eleves.edit');
+Route::put('/eleves/{eleve}', EleveController::class .'@update')->name('eleves.update');
+Route::delete('/eleves/{eleve}', EleveController::class .'@destroy')->name('eleves.destroy');
 
 
     // ANNEESCOLAIRES

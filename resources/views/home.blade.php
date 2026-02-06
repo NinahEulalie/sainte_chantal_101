@@ -19,6 +19,15 @@
 
     <div class="col-md-4">
         <div class="card shadow text-center p-4">
+            <h4> Gestion des Eleves</h4>
+            <a href="{{ route('eleves.index') }}" class="btn btn-primary mt-3">
+                Accéder
+            </a>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow text-center p-4">
             <h4> Années Scolaires</h4>
             <a href="{{ route('anneescolaires.index') }}" class="btn btn-primary mt-3">
                 Accéder
