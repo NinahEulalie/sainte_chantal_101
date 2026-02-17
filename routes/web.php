@@ -12,6 +12,15 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
+Route::get('/ecolage', function () {
+    return view('maintenance');
+})->name('ecolage');
+
+Route::get('/inscription', function () {
+    return view('maintenance');
+})->name('inscription');
+
+
     // PARENTS
 // returns the home page with all parents - READ
 Route::get('/parents/index', ParentController::class .'@index')->name('parents.index');
@@ -36,6 +45,7 @@ Route::delete('/parents/{parent}', ParentController::class .'@destroy')->name('p
 
 
 // ELEVES
+Route::get('/eleves-recherche', [EleveController::class, 'search'])->name('eleves.search');
 Route::get('/eleves/index', EleveController::class .'@index')->name('eleves.index');
 Route::get('/eleves/create', EleveController::class . '@create')->name('eleves.create');
 Route::post('/eleves', EleveController::class .'@store')->name('eleves.store');

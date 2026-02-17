@@ -89,4 +89,20 @@ class EleveController extends Controller
         return redirect()->route('eleves.index')
             ->with('success', 'Eleve supprimé.');
     }
+
+    // Recherche
+    public function search(Request $request)
+    {
+        $query = $request->get('q');
+
+        $eleves = Eleve::with('parent')
+            ->where('nom', 'LIKE', "%{$query}%")
+            ->orWhere('prenom', 'LIKE', "%{$query}%")
+            ->orWhere('adresse', 'LIKE', "%{$query}%")
+            // ->orWhere('matricule', 'LIKE', "%{$query}%")
+            ->get();
+
+        return view('eleves.partials.table_rows', compact('eleves'));
+    }
+
 }

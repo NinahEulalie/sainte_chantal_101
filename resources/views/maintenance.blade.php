@@ -4,7 +4,7 @@
 
 <div class="text-center mt-5">
     <h1 class="fw-bold">Bienvenue à Sainte Chantal</h1>
-    <p class="text-muted">Système de gestion scolaire</p>
+    <h3 class="text-muted">Page en cours de maintenance, merci de patienter ! </h3>
 </div>
 
 @endsection

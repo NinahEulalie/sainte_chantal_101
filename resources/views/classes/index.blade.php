@@ -12,6 +12,7 @@
             <th>Nom de la classe</th>
             <th>Effectif</th>
             <th>Niveau</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>

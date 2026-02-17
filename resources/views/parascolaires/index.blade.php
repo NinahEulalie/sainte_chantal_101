@@ -11,6 +11,7 @@
         <tr>
             <th>Activité à choisir</th>
             <th>Frais à payer</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
