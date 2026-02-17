@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Sainte Chantal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
     <style>
         .sidebar {
@@ -16,6 +17,9 @@
             border-radius: 8px;
             margin-bottom: 5px;
             transition: 0.2s;
+            display: flex;
+            align-items: center;
+
         }
 
         .sidebar .nav-link:hover {
@@ -26,6 +30,11 @@
             background-color: #973131 !important;
             color: white !important;
             font-weight: 600;
+        }
+
+        #dropdownUser:hover i {
+            color: #973131;
+            transition: 0.2s;
         }
     </style>
 </head>
@@ -54,6 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <body>
 
@@ -69,42 +79,42 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 <a href="{{ route('home') }}"
                 class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">
-                    Accueil
+                    <i class="bi bi-house-door me-2"></i> Accueil
                 </a>
 
                 <a href="{{ route('parents.index') }}"
                 class="nav-link {{ request()->routeIs('parents.*') ? 'active' : '' }}">
-                    Parents
+                    <i class="bi bi-people me-2"></i> Parents
                 </a>
 
                 <a href="{{ route('eleves.index') }}"
                 class="nav-link {{ request()->routeIs('eleves.*') ? 'active' : '' }}">
-                    Élèves
+                    <i class="bi bi-person-badge me-2"></i> Élèves
                 </a>
 
                 <a href="{{ route('anneescolaires.index') }}"
                 class="nav-link {{ request()->routeIs('anneescolaires.*') ? 'active' : '' }}">
-                    Années scolaires
+                    <i class="bi bi-calendar-event me-2"></i> Années scolaires
                 </a>
 
                 <a href="{{ route('classes.index') }}"
                 class="nav-link {{ request()->routeIs('classes.*') ? 'active' : '' }}">
-                    Classes
+                    <i class="bi bi-mortarboard me-2"></i> Classes
                 </a>
 
                 <a href="{{ route('parascolaires.index') }}"
                 class="nav-link {{ request()->routeIs('parascolaires.*') ? 'active' : '' }}">
-                    Parascolaires
+                    <i class="bi bi-controller me-2"></i> Parascolaires
                 </a>
 
                 <a href="{{ route('ecolage') }}"
                 class="nav-link {{ request()->routeIs('ecolage') ? 'active' : '' }}">
-                    Ecolage
+                    <i class="bi bi-cash-coin me-2"></i> Ecolage
                 </a>
 
                 <a href="{{ route('inscription') }}"
                 class="nav-link {{ request()->routeIs('inscription') ? 'active' : '' }}">
-                    Inscriptions/Réinscriptions
+                    <i class="bi bi-pencil-square me-2"></i> Inscriptions/Réinscriptions
                 </a>
             </div>
         </div>
@@ -115,26 +125,82 @@ document.addEventListener("DOMContentLoaded", function () {
 
             {{-- NAVBAR TOP --}}
             <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4">
-                
                 <div class="container-fluid">
 
-                    {{-- Titre dynamique --}}
-                    <span class="navbar-brand fw-bold">
-                        @yield('page-title', '')
-                    </span>
+                    {{-- Titre + Recherche --}}
+                    <div class="d-flex align-items-center gap-3">
 
-                    {{-- Barre de recherche --}}
-                    <form class="d-flex" role="search" onsubmit="return false;">
-                        <input
-                            type="search"
-                            id="search-eleve"
-                            class="form-control"
-                            placeholder="Rechercher..."
-                        >
-                    </form>
+                        {{-- Titre dynamique --}}
+                        <span class="navbar-brand fw-bold mb-0">
+                            @yield('page-title', '')
+                        </span>
+
+                        {{-- Barre de recherche --}}
+                        <form class="d-flex" role="search" onsubmit="return false;">
+                            <div class="input-group" style="width: 600px;">
+
+                                <input
+                                    type="search"
+                                    id="search-eleve"
+                                    class="form-control"
+                                    placeholder="Rechercher..."
+                                >
+
+                                <button class="btn btn-outline-secondary" type="button">
+                                    <i class="bi bi-search"></i>
+                                </button>
+
+                            </div>
+                        </form>
+
+                    </div>
+
+                    {{-- Profil utilisateur --}}
+                    <div class="dropdown">
+
+                        <button 
+                            class="btn p-0 d-flex align-items-center text-dark"
+                            id="dropdownUser"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            style="border: none; background: none;">
+
+                            <i class="bi bi-person-circle fs-4"></i>
+                        </button>
+
+                        <ul class="dropdown-menu dropdown-menu-end shadow"
+                            aria-labelledby="dropdownUser"
+                            style="min-width: 220px;">
+
+                            <li class="dropdown-header">
+                                <strong>Utilisateur</strong>
+                            </li>
+
+                            <li class="px-3 py-1 text-muted small">
+                                Nom : Admin
+                            </li>
+
+                            <li class="px-3 py-1 text-muted small">
+                                Rôle : Administrateur
+                            </li>
+
+                            <li><hr class="dropdown-divider"></li>
+
+                            <li>
+                                <a class="dropdown-item text-danger d-flex align-items-center"
+                                href="#">
+                                    <i class="bi bi-box-arrow-right me-2"></i>
+                                    Déconnexion
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </div>
 
                 </div>
             </nav>
+
 
             {{-- CONTENU PAGE --}}
             <div class="p-4 flex-grow-1">

@@ -26,12 +26,15 @@
             <td>{{ $parent->telephone }}</td>
             <td>{{ $parent->email }}</td>
             <td>
-                <a href="{{ route('parents.show', $parent->id_parent) }}" class="btn btn-info btn-sm">Voir</a>
-                <a href="{{ route('parents.edit', $parent->id_parent) }}" class="btn btn-warning btn-sm">Modifier</a>
+                <a href="{{ route('parents.show', $parent->id_parent) }}" class="btn btn-info btn-sm d-flex align-items-center">
+                    <i class="bi bi-eye me-1"></i> Voir</a>
+                <a href="{{ route('parents.edit', $parent->id_parent) }}" class="btn btn-warning btn-sm d-flex align-items-center">
+                    <i class="bi bi-pencil-square me-1"></i> Modifier</a>
                 <form action="{{ route('parents.destroy', $parent->id_parent) }}" method="POST" class="d-inline">
                     @csrf
                     @method('DELETE')
-                    <button class="btn btn-danger btn-sm">Supprimer</button>
+                    <button class="btn btn-danger btn-sm d-flex align-items-center">
+                        <i class="bi bi-trash me-1"></i> Supprimer</button>
                 </form>
             </td>
         </tr>
