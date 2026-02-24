@@ -8,12 +8,12 @@
 
     <style>
         .sidebar {
-            background-color: #1e1e1e;
+            background-color: #ffffff;
             min-height: 100vh;
         }
 
         .sidebar .nav-link {
-            color: white;
+            color: black;
             border-radius: 8px;
             margin-bottom: 5px;
             transition: 0.2s;
@@ -23,7 +23,7 @@
         }
 
         .sidebar .nav-link:hover {
-            background-color: #2c2c2c;
+            background-color: #deb887;
         }
 
         .sidebar .nav-link.active {
@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
         {{-- SIDEBAR --}}
         <div class="col-md-3 col-lg-2 sidebar p-3">
 
-            <h4 class="text-center text-white mb-4">Sainte Chantal</h4>
+            <h4 class="text-center text-black mb-4">Sainte Chantal</h4>
 
             <div class="nav flex-column nav-pills">
 
