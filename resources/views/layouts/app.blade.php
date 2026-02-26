@@ -5,6 +5,7 @@
     <title>Sainte Chantal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ URL::to('../../../public/assets/plugins/datatables/datatables.min.css') }}">
 
     <style>
         .sidebar {
@@ -79,42 +80,42 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 <a href="{{ route('home') }}"
                 class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">
-                    <i class="bi bi-house-door me-2"></i> Accueil
+                    <i class="bi bi-house-door-fill me-2"></i> Accueil
                 </a>
 
                 <a href="{{ route('parents.index') }}"
                 class="nav-link {{ request()->routeIs('parents.*') ? 'active' : '' }}">
-                    <i class="bi bi-people me-2"></i> Parents
+                    <i class="bi bi-people-fill me-2"></i> Parents
                 </a>
 
                 <a href="{{ route('eleves.index') }}"
                 class="nav-link {{ request()->routeIs('eleves.*') ? 'active' : '' }}">
-                    <i class="bi bi-person-badge me-2"></i> Élèves
+                    <i class="bi bi-file-person-fill me-2"></i> Élèves
                 </a>
 
                 <a href="{{ route('anneescolaires.index') }}"
                 class="nav-link {{ request()->routeIs('anneescolaires.*') ? 'active' : '' }}">
-                    <i class="bi bi-calendar-event me-2"></i> Années scolaires
+                    <i class="bi bi-calendar-event-fill me-2"></i> Années scolaires
                 </a>
 
                 <a href="{{ route('classes.index') }}"
                 class="nav-link {{ request()->routeIs('classes.*') ? 'active' : '' }}">
-                    <i class="bi bi-mortarboard me-2"></i> Classes
+                    <i class="bi bi-mortarboard-fill me-2"></i> Classes
                 </a>
 
                 <a href="{{ route('parascolaires.index') }}"
                 class="nav-link {{ request()->routeIs('parascolaires.*') ? 'active' : '' }}">
-                    <i class="bi bi-controller me-2"></i> Parascolaires
+                    <i class="bi bi-palette-fill me-2"></i> Parascolaires
                 </a>
 
                 <a href="{{ route('ecolage') }}"
                 class="nav-link {{ request()->routeIs('ecolage') ? 'active' : '' }}">
-                    <i class="bi bi-cash-coin me-2"></i> Ecolage
+                    <i class="bi bi-cash-stack me-2"></i> Ecolage
                 </a>
 
                 <a href="{{ route('inscription') }}"
                 class="nav-link {{ request()->routeIs('inscription') ? 'active' : '' }}">
-                    <i class="bi bi-pencil-square me-2"></i> Inscriptions/Réinscriptions
+                    <i class="bi bi-file-diff-fill me-2"></i> Inscriptions/Réinscriptions
                 </a>
             </div>
         </div>

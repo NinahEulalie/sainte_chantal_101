@@ -24,7 +24,7 @@
         </div>
         <div class="col-lg-2">
             <div class="search-student-btn">
-                <button type="btn" class="btn btn-primary">Search
+                <button type="btn" class="btn btn-primary">Rechercher
                     <i class="bi bi-search"></i>
                 </button>
             </div>
@@ -72,9 +72,9 @@
                 <td>{{ $parent->email }}</td>
                 <td class="text-end">
                     <div class="actions">
-                        <a href="{{ route('parents.show', $parent->id_parent) }}" class="btn btn-info btn-sm d-flex align-items-center">
+                        <a href="{{ route('parents.show', $parent->id_parent) }}" class="btn btn-info btn-sm">
                             <i class="bi bi-eye me-1"></i> Voir</a>
-                        <a href="{{ route('parents.edit', $parent->id_parent) }}" class="btn btn-warning btn-sm d-flex align-items-center">
+                        <a href="{{ route('parents.edit', $parent->id_parent) }}" class="btn btn-warning btn-sm">
                             <i class="bi bi-pencil-square me-1"></i> Modifier</a>
                         </a>
                     </div>
