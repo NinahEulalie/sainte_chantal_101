@@ -5,6 +5,7 @@ use App\Http\Controllers\ParentController;
 use App\Http\Controllers\EleveController;
 use App\Http\Controllers\AnneeController;
 use App\Http\Controllers\ClasseController;
+use App\Http\Controllers\MatiereController;
 use App\Http\Controllers\ParascolaireController;
 
 
@@ -73,6 +74,16 @@ Route::get('/classes/{classe}', ClasseController::class .'@show')->name('classes
 Route::get('/classes/{classe}/edit', ClasseController::class .'@edit')->name('classes.edit');
 Route::put('/classes/{classe}', ClasseController::class .'@update')->name('classes.update');
 Route::delete('/classes/{classe}', ClasseController::class .'@destroy')->name('classes.destroy');
+
+
+    // MATIERES
+Route::get('/matieres/index', MatiereController::class .'@index')->name('matieres.index');
+Route::get('/matieres/create', MatiereController::class . '@create')->name('matieres.create');
+Route::post('/matieres', MatiereController::class .'@store')->name('matieres.store');
+Route::get('/matieres/{matiere}', MatiereController::class .'@show')->name('matieres.show');
+Route::get('/matieres/{matiere}/edit', MatiereController::class .'@edit')->name('matieres.edit');
+Route::put('/matieres/{matiere}', MatiereController::class .'@update')->name('matieres.update');
+Route::delete('/matieres/{matiere}', MatiereController::class .'@destroy')->name('matieres.destroy');
 
 
 // PARASCOLAIRES

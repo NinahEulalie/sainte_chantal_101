@@ -103,6 +103,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     <i class="bi bi-mortarboard-fill me-2"></i> Classes
                 </a>
 
+                <a href="{{ route('matieres.index') }}"
+                class="nav-link {{ request()->routeIs('matieres.*') ? 'active' : '' }}">
+                    <i class="bi bi-book-fill me-2"></i> Matières
+                </a>
+
                 <a href="{{ route('parascolaires.index') }}"
                 class="nav-link {{ request()->routeIs('parascolaires.*') ? 'active' : '' }}">
                     <i class="bi bi-palette-fill me-2"></i> Parascolaires

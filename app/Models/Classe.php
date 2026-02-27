@@ -23,4 +23,10 @@ class Classe extends Model
         'nom_classe',
         'niveau'
     ];
+
+    // Relation classe-matiere
+    public function matiere()
+    {
+        return $this->hasMany(Matiere::class, 'id_classe', 'id_classe');
+    }
 }
