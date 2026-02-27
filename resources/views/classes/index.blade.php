@@ -10,7 +10,6 @@
     <thead class="table-dark">
         <tr>
             <th>Nom de la classe</th>
-            <th>Effectif</th>
             <th>Niveau</th>
             <th>Actions</th>
         </tr>
@@ -19,7 +18,6 @@
         @foreach($classes as $classe)
         <tr>
             <td>{{ $classe->nom_classe }}</td>
-            <td>{{ $classe->effectif }}</td>
             <td>{{ $classe->niveau }}</td>
             <td>
                 <a href="{{ route('classes.show', $classe->id_classe) }}" class="btn btn-info btn-sm">Voir</a>

@@ -6,8 +6,6 @@
 <div class="card p-4 shadow-sm">
     <p><strong>Nom de la classe :</strong> {{ $classe->nom_classe }}</p>
 
-    <p><strong>Effectif :</strong> {{ $classe->effectif }}</p>
-
     <p><strong>Niveau :</strong> {{ $classe->niveau }}</p>
 
     <a href="{{ route('classes.index') }}" class="btn btn-secondary">Retour</a>

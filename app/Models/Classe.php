@@ -21,7 +21,6 @@ class Classe extends Model
 
     protected $fillable = [
         'nom_classe',
-        'effectif',
         'niveau'
     ];
 }

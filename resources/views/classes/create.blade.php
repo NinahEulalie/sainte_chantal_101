@@ -14,12 +14,6 @@
         </div>
 
         <div class="col-md-6 mb-3">
-            <label>Effectif</label>
-            <input type="text" name="effectif" class="form-control"
-                value="{{ old('effectif',  $classe->effectif ??'') }}" required>
-        </div>
-
-        <div class="col-md-6 mb-3">
             <label>Niveau</label>
             <select name="niveau" class="form-select" required>
                 <option value="">-- Choisir un niveau --</option>

@@ -25,7 +25,6 @@ class ClasseController extends Controller
     {
         $request->validate([
             'nom_classe' => 'required|string|max:255',
-            'effectif' => 'required|integer|min:1',
             'niveau' => 'required|string'
         ]);
 
@@ -54,7 +53,6 @@ class ClasseController extends Controller
     {
         $request->validate([
             'nom_classe' => 'required|string|max:255',
-            'effectif' => 'required|integer|min:1',
             'niveau' => 'required|string'
         ]);
 
