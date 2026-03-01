@@ -55,7 +55,8 @@ class EleveController extends Controller
     public function edit($id_eleve)
     {
         $eleve = Eleve::find($id_eleve);
-        return view('eleves.edit', compact('eleve'));
+        $parents = StudentParent::all(); 
+        return view('eleves.edit', compact('eleve','parents'));
     }
 
     // modification - UPDATE

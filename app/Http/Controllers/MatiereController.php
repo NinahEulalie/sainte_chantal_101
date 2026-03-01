@@ -50,7 +50,8 @@ class MatiereController extends Controller
     public function edit($id_matiere)
     {
         $matiere = Matiere::find($id_matiere);
-        return view('matieres.edit', compact('matiere'));
+        $classes = Classe::all(); 
+        return view('matieres.edit', compact('matiere','classes'));
     }
 
     // modification - UPDATE
@@ -63,7 +64,7 @@ class MatiereController extends Controller
             'id_classe' => 'required|exists:classes,id_classe',
         ]);
 
-        $matiere = Matiere::find($id_eleve);
+        $matiere = Matiere::find($id_matiere);
         $matiere->update($request->all());
 
         return redirect()->route('matieres.index')
@@ -73,7 +74,7 @@ class MatiereController extends Controller
     // suppression - DELETE
     public function destroy($id_matiere)
     {
-        $matiere = Eleve::find($id_matiere);
+        $matiere = Matiere::find($id_matiere);
         $matiere->delete();
 
         return redirect()->route('matieres.index')
