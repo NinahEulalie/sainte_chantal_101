@@ -31,4 +31,10 @@ class Matiere extends Model
     {
         return $this->belongsTo(Classe::class, 'id_classe', 'id_classe');
     }
+
+    // Relation matiere-evaluation
+    public function evaluation()
+    {
+        return $this->hasMany(Evaluation::class, 'id_matiere', 'id_matiere');
+    }
 }

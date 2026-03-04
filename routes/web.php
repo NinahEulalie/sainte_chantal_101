@@ -6,6 +6,7 @@ use App\Http\Controllers\EleveController;
 use App\Http\Controllers\AnneeController;
 use App\Http\Controllers\ClasseController;
 use App\Http\Controllers\MatiereController;
+use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\ParascolaireController;
 
 
@@ -84,6 +85,16 @@ Route::get('/matieres/{matiere}', MatiereController::class .'@show')->name('mati
 Route::get('/matieres/{matiere}/edit', MatiereController::class .'@edit')->name('matieres.edit');
 Route::put('/matieres/{matiere}', MatiereController::class .'@update')->name('matieres.update');
 Route::delete('/matieres/{matiere}', MatiereController::class .'@destroy')->name('matieres.destroy');
+
+
+    // EVALUATIONS
+Route::get('/evaluations/index', EvaluationController::class .'@index')->name('evaluations.index');
+Route::get('/evaluations/create', EvaluationController::class . '@create')->name('evaluations.create');
+Route::post('/evaluations', EvaluationController::class .'@store')->name('evaluations.store');
+Route::get('/evaluations/{evaluation}', EvaluationController::class .'@show')->name('evaluations.show');
+Route::get('/evaluations/{evaluation}/edit', EvaluationController::class .'@edit')->name('evaluations.edit');
+Route::put('/evaluations/{evaluation}', EvaluationController::class .'@update')->name('evaluations.update');
+Route::delete('/evaluations/{evaluation}', EvaluationController::class .'@destroy')->name('evaluations.destroy');
 
 
 // PARASCOLAIRES

@@ -22,7 +22,7 @@
                 <option value="3"{{ old('coefficient', $matiere->coefficient ?? '') == '3' ? 'selected' : '' }}>3</option>
                 <option value="4"{{ old('coefficient', $matiere->coefficient ?? '') == '4' ? 'selected' : '' }}>4</option>
                 <option value="5"{{ old('coefficient', $matiere->coefficient ?? '') == '5' ? 'selected' : '' }}>5</option>
-                <option value="6"{{ old('coefficient', $matiere->coefficient ?? '') == '6' ? 'selected' : '' }}>61</option>
+                <option value="6"{{ old('coefficient', $matiere->coefficient ?? '') == '6' ? 'selected' : '' }}>6</option>
             </select>
         </div>
 
