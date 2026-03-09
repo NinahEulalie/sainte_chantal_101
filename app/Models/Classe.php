@@ -29,4 +29,24 @@ class Classe extends Model
     {
         return $this->hasMany(Matiere::class, 'id_classe', 'id_classe');
     }
+
+    public function elevesAnnees()
+    {
+        return $this->hasMany(AffectationsParClasse::class, 'id_classe', 'id_classe');
+    }
+
+    // Compter les élèves pour l'année active
+    public function effectifActuel()
+    {
+        $anneeActive = AnneeScolaire::where('active', 1)->first();
+        
+        if (!$anneeActive) {
+            return 0;
+        }
+
+        return $this->elevesAnnees()
+            ->where('id_annee', $anneeActive->id_annee)
+            ->count();
+    }
+
 }

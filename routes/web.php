@@ -8,6 +8,7 @@ use App\Http\Controllers\ClasseController;
 use App\Http\Controllers\MatiereController;
 use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\ParascolaireController;
+use App\Http\Controllers\AffectationController;
 
 
 Route::get('/', function () {
@@ -75,6 +76,13 @@ Route::get('/classes/{classe}', ClasseController::class .'@show')->name('classes
 Route::get('/classes/{classe}/edit', ClasseController::class .'@edit')->name('classes.edit');
 Route::put('/classes/{classe}', ClasseController::class .'@update')->name('classes.update');
 Route::delete('/classes/{classe}', ClasseController::class .'@destroy')->name('classes.destroy');
+
+    // AFFECTATIONS PAR CLASSE DES ELEVES
+Route::prefix('affectations')->name('affectations.')->group(function () {
+    Route::get('/', [AffectationController::class, 'index'])->name('index');
+    Route::post('/affecter', [AffectationController::class, 'affecter'])->name('affecter');
+    Route::delete('/retirer/{id_eleve}/{id_classe}', [AffectationController::class, 'retirer'])->name('retirer');
+});
 
 
     // MATIERES

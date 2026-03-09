@@ -36,4 +36,25 @@ class Eleve extends Model
     {
         return $this->belongsTo(StudentParent::class, 'id_parent', 'id_parent');
     }
+
+    // Relation eleves-classes via affectations_par_classes
+    public function classesAnnees()
+    {
+        return $this->hasMany(AffectationsParClasse::class, 'id_eleve', 'id_eleve');
+    }
+
+    // Récupérer la classe actuelle pour l'année active
+    public function classeActuelle()
+    {
+        $anneeActive = AnneeScolaire::where('active', 1)->first();
+        
+        if (!$anneeActive) {
+            return null;
+        }
+
+        return $this->classesAnnees()
+            ->where('id_annee', $anneeActive->id_annee)
+            ->with('classe')
+            ->first();
+    }
 }

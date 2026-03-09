@@ -25,4 +25,21 @@ class AnneeScolaire extends Model
         'date_fin',
         'active'
     ];
+
+    protected $casts = [
+        'active' => 'boolean',
+        'date_debut' => 'date',
+        'date_fin' => 'date'
+    ];
+
+    public function elevesClasses()
+    {
+        return $this->hasMany(AffectationsParClasse::class, 'id_annee', 'id_annee');
+    }
+
+    // Méthode helper pour l'année active
+    public static function anneeActive()
+    {
+        return self::where('active', 1)->first();
+    }
 }
