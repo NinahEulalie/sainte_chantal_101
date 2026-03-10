@@ -12,26 +12,56 @@
         </div>
     </div>
 
-    <!-- Filtre par niveau -->
+    <!-- Filtres : Niveau + Nom de classe -->
     <div class="row mb-4">
-        <div class="col-md-4">
-            <form method="GET" action="{{ route('affectations.index') }}">
-                <label class="form-label">Sélectionner le niveau</label>
+        <div class="col-md-3">
+            <form method="GET" action="{{ route('affectations.index') }}" id="filterForm">
+                <label class="form-label">Niveau (Primaire/Collège/Lycée)</label>
                 <select name="niveau" class="form-select" onchange="this.form.submit()">
-                    @foreach($niveaux as $niveau)
-                        <option value="{{ $niveau }}" {{ $niveauSelectionne == $niveau ? 'selected' : '' }}>
-                            {{ $niveau }}
-                        </option>
-                    @endforeach
+                    @if($niveaux->isEmpty())
+                        <option disabled selected>Aucun niveau disponible</option>
+                    @else
+                        @foreach($niveaux as $niveau)
+                            <option value="{{ $niveau }}" {{ $niveauSelectionne == $niveau ? 'selected' : '' }}>
+                                {{ ucfirst($niveau) }}
+                            </option>
+                        @endforeach
+                    @endif
                 </select>
             </form>
         </div>
+
+        @if($niveauSelectionne)
+            <div class="col-md-3">
+                <form method="GET" action="{{ route('affectations.index') }}">
+                    <input type="hidden" name="niveau" value="{{ $niveauSelectionne }}">
+                    <label class="form-label">Classe (9ème, 3ème, etc.)</label>
+                    <select name="nom_classe" class="form-select" onchange="this.form.submit()">
+                        @if($nomsClasses->isEmpty())
+                            <option disabled selected>Aucune classe disponible</option>
+                        @else
+                            @foreach($nomsClasses as $nomClasse)
+                                <option value="{{ $nomClasse }}" {{ $nomClasseSelectionne == $nomClasse ? 'selected' : '' }}>
+                                    {{ $nomClasse }}
+                                </option>
+                            @endforeach
+                        @endif
+                    </select>
+                </form>
+            </div>
+        @endif
     </div>
 
     @if($classes->isEmpty())
         <div class="alert alert-warning">
-            Aucune classe trouvée pour le niveau {{ $niveauSelectionne }}. 
-            Veuillez d'abord créer les classes.
+            @if(!$niveauSelectionne)
+                Veuillez d'abord créer des classes dans la section "Classes".
+            @elseif(!$nomClasseSelectionne)
+                Aucune classe trouvée pour le niveau <strong>{{ $niveauSelectionne }}</strong>.
+            @else
+                Aucune classe parallèle trouvée pour <strong>{{ $nomClasseSelectionne }}</strong> (niveau {{ $niveauSelectionne }}).
+                <br>Veuillez d'abord créer les classes (ex: {{ $nomClasseSelectionne }} A, {{ $nomClasseSelectionne }} B, etc.).
+            @endif
         </div>
     @else
         <!-- Élèves non affectés -->
@@ -93,7 +123,7 @@
             <div class="card-header bg-success text-white">
                 <h5 class="mb-0">
                     <i class="bi bi-check-circle"></i> 
-                    Élèves déjà affectés
+                    Élèves affectés en {{ $nomClasseSelectionne }}
                 </h5>
             </div>
             <div class="card-body">
@@ -108,7 +138,7 @@
                                         <h6 class="mb-0">
                                             {{ $classe->nom_classe }}
                                             <span class="badge bg-success">
-                                                {{ $elevesAffectes->get($classe->id_classe)->count() ?? 0 }} élèves
+                                                {{ $elevesAffectes->get($classe->id_classe)?->count() ?? 0 }} élèves
                                             </span>
                                         </h6>
                                     </div>
@@ -158,96 +188,5 @@
 @endsection
 
 @section('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // CSRF Token
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-    // Toast notification
-    function showToast(message, type = 'success') {
-        const toast = document.getElementById('toastNotification');
-        const toastMessage = document.getElementById('toastMessage');
-        
-        toast.classList.remove('bg-success', 'bg-danger', 'text-white');
-        toast.classList.add(type === 'success' ? 'bg-success' : 'bg-danger', 'text-white');
-        
-        toastMessage.textContent = message;
-        
-        const bsToast = new bootstrap.Toast(toast);
-        bsToast.show();
-    }
-
-    // Affecter un élève à une classe
-    document.querySelectorAll('.btn-affecter').forEach(button => {
-        button.addEventListener('click', function() {
-            const eleveId = this.dataset.eleveId;
-            const classeId = this.dataset.classeId;
-            const eleveNom = this.dataset.eleveNom;
-            const classeNom = this.dataset.classeNom;
-
-            if (!confirm(`Affecter ${eleveNom} à la classe ${classeNom} ?`)) {
-                return;
-            }
-
-            fetch('{{ route("affectations.affecter") }}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrfToken
-                },
-                body: JSON.stringify({
-                    id_eleve: eleveId,
-                    id_classe: classeId
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    showToast(data.message, 'success');
-                    // Recharger la page après 1 seconde
-                    setTimeout(() => location.reload(), 1000);
-                } else {
-                    showToast(data.message, 'error');
-                }
-            })
-            .catch(error => {
-                showToast('Erreur lors de l\'affectation', 'error');
-                console.error('Erreur:', error);
-            });
-        });
-    });
-
-    // Retirer un élève d'une classe
-    document.querySelectorAll('.btn-retirer').forEach(button => {
-        button.addEventListener('click', function() {
-            const eleveId = this.dataset.eleveId;
-            const classeId = this.dataset.classeId;
-
-            if (!confirm('Retirer cet élève de la classe ?')) {
-                return;
-            }
-
-            fetch(`/affectations/retirer/${eleveId}/${classeId}`, {
-                method: 'DELETE',
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    showToast(data.message, 'success');
-                    setTimeout(() => location.reload(), 1000);
-                } else {
-                    showToast(data.message, 'error');
-                }
-            })
-            .catch(error => {
-                showToast('Erreur lors du retrait', 'error');
-                console.error('Erreur:', error);
-            });
-        });
-    });
-});
-</script>
+<script src="{{ asset('../../js/affectations.js') }}"></script>
 @endsection

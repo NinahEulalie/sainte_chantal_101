@@ -2,10 +2,11 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Sainte Chantal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="{{ URL::to('../../../public/assets/plugins/datatables/datatables.min.css') }}">
+    <!-- <link rel="stylesheet" href="{{ URL::to('../../../public/assets/plugins/datatables/datatables.min.css') }}"> -->
 
     <style>
         .sidebar {
@@ -105,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 <a href="{{ route('affectations.index') }}"
                 class="nav-link {{ request()->routeIs('affectations.*') ? 'active' : '' }}">
-                    <i class="bi bi-mortarboard-fill me-2"></i> Affectations par classe
+                    <i class="bi bi-mortarboard-fill me-2"></i> Répartitions classes
                 </a>
 
                 <a href="{{ route('matieres.index') }}"
@@ -130,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 <a href="{{ route('inscription') }}"
                 class="nav-link {{ request()->routeIs('inscription') ? 'active' : '' }}">
-                    <i class="bi bi-file-diff-fill me-2"></i> Inscriptions/Réinscriptions
+                    <i class="bi bi-file-diff-fill me-2"></i> Inscriptions
                 </a>
             </div>
         </div>

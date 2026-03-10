@@ -19,18 +19,52 @@ class AffectationController extends Controller
             return redirect()->back()->with('error', 'Aucune année scolaire active trouvée.');
         }
 
-        // Récupérer le niveau sélectionné (par défaut 9ème)
-        $niveauSelectionne = $request->get('niveau', '9ème');
+        // Récupérer tous les niveaux disponibles (primaire, collège, lycée)
+        $niveaux = Classe::select('niveau')->distinct()->orderBy('niveau')->pluck('niveau');
 
-        // Récupérer les classes du niveau sélectionné
-        $classes = Classe::where('niveau', $niveauSelectionne)
-            ->orderBy('nom_classe')
-            ->get();
+        // Récupérer le niveau sélectionné (sans valeur par défaut si non spécifié)
+        $niveauSelectionne = $request->get('niveau');
+
+        // Si aucun niveau n'est sélectionné, prendre le premier disponible
+        if (!$niveauSelectionne && $niveaux->isNotEmpty()) {
+            $niveauSelectionne = $niveaux->first();
+        }
+
+        // Récupérer le nom de classe sélectionné (ex: "9ème", "3ème")
+        $nomClasseSelectionne = $request->get('nom_classe');
+
+        // Récupérer toutes les classes du niveau sélectionné
+        $classesDisponibles = [];
+        if ($niveauSelectionne) {
+            $classesDisponibles = Classe::where('niveau', $niveauSelectionne)
+                ->orderBy('nom_classe')
+                ->get();
+        }
+
+        // Extraire les noms de classe uniques (9ème, 3ème, etc.) pour ce niveau
+        $nomsClasses = $classesDisponibles->map(function($classe) {
+            // Extraire juste "9ème" de "9ème A" ou "3ème" de "3ème B"
+            preg_match('/^([^\s]+)/', $classe->nom_classe, $matches);
+            return $matches[1] ?? $classe->nom_classe;
+        })->unique()->values();
+
+        // Si aucun nom de classe sélectionné, prendre le premier
+        if (!$nomClasseSelectionne && $nomsClasses->isNotEmpty()) {
+            $nomClasseSelectionne = $nomsClasses->first();
+        }
+
+        // Filtrer les classes parallèles (9ème A, 9ème B, 9ème C)
+        $classes = collect();
+        if ($nomClasseSelectionne) {
+            $classes = $classesDisponibles->filter(function($classe) use ($nomClasseSelectionne) {
+                return str_starts_with($classe->nom_classe, $nomClasseSelectionne);
+            });
+        }
 
         // Récupérer tous les élèves NON ENCORE affectés pour cette année
         $elevesNonAffectes = Eleve::whereNotExists(function ($query) use ($anneeActive) {
                 $query->select('id_eleve')
-                    ->from('eleve_classe_annee')
+                    ->from('affectations_par_classes')
                     ->whereColumn('eleves.id_eleve', 'affectations_par_classes.id_eleve')
                     ->where('affectations_par_classes.id_annee', $anneeActive->id_annee);
             })
@@ -39,17 +73,17 @@ class AffectationController extends Controller
             ->orderBy('prenom')
             ->get();
 
-        // Récupérer les élèves DÉJÀ affectés pour cette année et ce niveau
-        $elevesAffectes = AffectationsParClasse::where('id_annee', $anneeActive->id_annee)
-            ->whereHas('classe', function ($query) use ($niveauSelectionne) {
-                $query->where('niveau', $niveauSelectionne);
-            })
-            ->with(['eleve', 'classe'])
-            ->get()
-            ->groupBy('id_classe');
-
-        // Liste des niveaux disponibles
-        $niveaux = Classe::select('niveau')->distinct()->orderBy('niveau')->pluck('niveau');
+        // Récupérer les élèves DÉJÀ affectés pour les classes sélectionnées
+        $elevesAffectes = collect();
+        if ($classes->isNotEmpty()) {
+            $classeIds = $classes->pluck('id_classe');
+            
+            $elevesAffectes = AffectationsParClasse::where('id_annee', $anneeActive->id_annee)
+                ->whereIn('id_classe', $classeIds)
+                ->with(['eleve', 'classe'])
+                ->get()
+                ->groupBy('id_classe');
+        }
 
         return view('affectations.index', compact(
             'anneeActive',
@@ -57,7 +91,9 @@ class AffectationController extends Controller
             'elevesNonAffectes',
             'elevesAffectes',
             'niveaux',
-            'niveauSelectionne'
+            'niveauSelectionne',
+            'nomsClasses',
+            'nomClasseSelectionne'
         ));
     }
 
@@ -86,21 +122,31 @@ class AffectationController extends Controller
             ], 400);
         }
 
-        // Créer l'affectation
-        AffectationsParClasse::create([
-            'id_eleve' => $request->id_eleve,
-            'id_classe' => $request->id_classe,
-            'id_annee' => $anneeActive->id_annee,
-            'statut' => 'nouveau'
-        ]);
+        try{
+            // Créer l'affectation
+            AffectationsParClasse::create([
+                'id_eleve' => $request->id_eleve,
+                'id_classe' => $request->id_classe,
+                'id_annee' => $anneeActive->id_annee,
+                'statut' => 'nouveau'
+            ]);
 
-        $eleve = Eleve::find($request->id_eleve);
-        $classe = Classe::find($request->id_classe);
+            $eleve = Eleve::find($request->id_eleve);
+            $classe = Classe::find($request->id_classe);
 
-        return response()->json([
-            'success' => true,
-            'message' => "{$eleve->nom} {$eleve->prenom} a été affecté(e) à la classe {$classe->nom_classe}."
-        ]);
+            return response()->json([
+                'success' => true,
+                'message' => "{$eleve->nom} {$eleve->prenom} a été affecté(e) à la classe {$classe->nom_classe}."
+            ]);
+        }
+        catch (\Exception $e) {
+            \Log::error('Erreur affectation', ['error' => $e->getMessage()]);
+            return response()->json([
+                'success' => false,
+                'message' => 'Erreur lors de l\'affectation: ' . $e->getMessage()
+            ], 500);
+        }
+        
     }
 
     public function retirer($id_eleve, $id_classe)
