@@ -188,5 +188,133 @@
 @endsection
 
 @section('scripts')
-<script src="{{ asset('../../js/affectations.js') }}"></script>
+<script src="{{ asset('assets/js/affectations.js') }}">
+// <script>
+//     console.log('✅ Script chargé');
+
+// document.addEventListener('DOMContentLoaded', function() {
+//     console.log('✅ DOM chargé');
+    
+//     // CSRF Token
+//     const csrfMeta = document.querySelector('meta[name="csrf-token"]');
+//     if (!csrfMeta) {
+//         console.error('❌ Meta CSRF non trouvé');
+//         return;
+//     }
+//     const csrfToken = csrfMeta.content;
+//     console.log('✅ CSRF Token OK');
+
+//     // Toast
+//     function showToast(message, type = 'success') {
+//         const toast = document.getElementById('toastNotification');
+//         const toastMessage = document.getElementById('toastMessage');
+        
+//         if (!toast || !toastMessage) {
+//             alert(message);
+//             return;
+//         }
+        
+//         toast.classList.remove('bg-success', 'bg-danger', 'text-white');
+//         toast.classList.add(type === 'success' ? 'bg-success' : 'bg-danger', 'text-white');
+//         toastMessage.textContent = message;
+        
+//         const bsToast = new bootstrap.Toast(toast);
+//         bsToast.show();
+//     }
+
+//     // Boutons affecter
+//     const boutonsAffecter = document.querySelectorAll('.btn-affecter');
+//     console.log(`✅ ${boutonsAffecter.length} boutons .btn-affecter trouvés`);
+    
+//     boutonsAffecter.forEach((button, index) => {
+//         button.addEventListener('click', function(e) {
+//             e.preventDefault();
+            
+//             console.log('🔵 CLIC sur bouton ' + (index + 1));
+            
+//             const eleveId = this.dataset.eleveId;
+//             const classeId = this.dataset.classeId;
+//             const eleveNom = this.dataset.eleveNom;
+//             const classeNom = this.dataset.classeNom;
+            
+//             console.log('📋 Données:', { eleveId, classeId, eleveNom, classeNom });
+
+//             if (!confirm(`Affecter ${eleveNom} à ${classeNom} ?`)) {
+//                 console.log('⚠️ Annulé');
+//                 return;
+//             }
+
+//             console.log('🚀 Envoi requête...');
+            
+//             fetch('{{ route("affectations.affecter") }}', {
+//                 method: 'POST',
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                     'X-CSRF-TOKEN': csrfToken,
+//                     'Accept': 'application/json'
+//                 },
+//                 body: JSON.stringify({
+//                     id_eleve: eleveId,
+//                     id_classe: classeId
+//                 })
+//             })
+//             .then(response => {
+//                 console.log('📥 Réponse:', response.status);
+//                 return response.json();
+//             })
+//             .then(data => {
+//                 console.log('✅ Succès:', data);
+//                 if (data.success) {
+//                     showToast(data.message, 'success');
+//                     setTimeout(() => location.reload(), 1000);
+//                 } else {
+//                     showToast(data.message, 'error');
+//                 }
+//             })
+//             .catch(error => {
+//                 console.error('❌ Erreur:', error);
+//                 showToast('Erreur: ' + error.message, 'error');
+//             });
+//         });
+//     });
+
+//     // Boutons retirer
+//     const boutonsRetirer = document.querySelectorAll('.btn-retirer');
+//     console.log(`✅ ${boutonsRetirer.length} boutons .btn-retirer trouvés`);
+    
+//     boutonsRetirer.forEach(button => {
+//         button.addEventListener('click', function(e) {
+//             e.preventDefault();
+            
+//             console.log('🔴 CLIC retirer');
+            
+//             const eleveId = this.dataset.eleveId;
+//             const classeId = this.dataset.classeId;
+
+//             if (!confirm('Retirer cet élève ?')) return;
+
+//             fetch(`/affectations/retirer/${eleveId}/${classeId}`, {
+//                 method: 'DELETE',
+//                 headers: {
+//                     'X-CSRF-TOKEN': csrfToken,
+//                     'Accept': 'application/json'
+//                 }
+//             })
+//             .then(response => response.json())
+//             .then(data => {
+//                 if (data.success) {
+//                     showToast(data.message, 'success');
+//                     setTimeout(() => location.reload(), 1000);
+//                 } else {
+//                     showToast(data.message, 'error');
+//                 }
+//             })
+//             .catch(error => {
+//                 console.error('❌ Erreur:', error);
+//                 showToast('Erreur: ' + error.message, 'error');
+//             });
+//         });
+//     });
+// });
+</script>
 @endsection

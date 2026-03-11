@@ -6,7 +6,6 @@
     <title>Sainte Chantal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-    <!-- <link rel="stylesheet" href="{{ URL::to('../../../public/assets/plugins/datatables/datatables.min.css') }}"> -->
 
     <style>
         .sidebar {
@@ -21,7 +20,6 @@
             transition: 0.2s;
             display: flex;
             align-items: center;
-
         }
 
         .sidebar .nav-link:hover {
@@ -40,32 +38,6 @@
         }
     </style>
 </head>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-
-    let searchInput = document.getElementById("search-eleve");
-
-    if (searchInput) {
-
-        searchInput.addEventListener("keyup", function () {
-
-            let query = this.value;
-
-            fetch(`/eleves-recherche?q=${query}`)
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById("eleves-table").innerHTML = data;
-                });
-
-        });
-
-    }
-
-});
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <body>
 
@@ -226,9 +198,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
         </div>
 
-
     </div>
 </div>
+
+<!-- Bootstrap JS - DOIT ÊTRE AVANT vos scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Script de recherche d'élèves -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    let searchInput = document.getElementById("search-eleve");
+
+    if (searchInput) {
+        searchInput.addEventListener("keyup", function () {
+            let query = this.value;
+
+            fetch(`/eleves-recherche?q=${query}`)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("eleves-table").innerHTML = data;
+                });
+        });
+    }
+});
+</script>
+
+<!-- Scripts des pages -->
+@yield('scripts')
 
 </body>
 </html>

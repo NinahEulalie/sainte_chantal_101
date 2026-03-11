@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class AffectationsParClasse extends Model
 {
     protected $table = 'affectations_par_classes';
+
+    public $timestamps = false;
     
     protected $fillable = [
         'id_eleve',
