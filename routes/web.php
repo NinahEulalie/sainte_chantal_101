@@ -104,6 +104,13 @@ Route::get('/evaluations/{evaluation}/edit', EvaluationController::class .'@edit
 Route::put('/evaluations/{evaluation}', EvaluationController::class .'@update')->name('evaluations.update');
 Route::delete('/evaluations/{evaluation}', EvaluationController::class .'@destroy')->name('evaluations.destroy');
 
+// Routes pour la saisie des notes
+Route::get('/evaluations/{id_evaluation}/saisie', [EvaluationController::class, 'saisirNotes'])
+    ->name('evaluations.saisie');
+    
+Route::post('/evaluations/{id_evaluation}/enregistrer', [EvaluationController::class, 'enregistrerNotes'])
+    ->name('evaluations.enregistrer');
+
 
 // PARASCOLAIRES
 Route::get('/parascolaires/index', ParascolaireController::class .'@index')->name('parascolaires.index');

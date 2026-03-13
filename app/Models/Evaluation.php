@@ -32,4 +32,10 @@ class Evaluation extends Model
     {
         return $this->belongsTo(Matiere::class, 'id_matiere', 'id_matiere');
     }
+
+    // Relation note-evaluation
+    public function notes()
+    {
+        return $this->hasMany(Note::class, 'id_evaluation', 'id_evaluation');
+    }
 }

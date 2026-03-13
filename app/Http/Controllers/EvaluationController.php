@@ -2,18 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Evaluation;
 use App\Models\Matiere;
+use App\Models\Eleve;
+use App\Models\Note;
+use App\Models\AnneeScolaire;
+use Illuminate\Http\Request;
 
 class EvaluationController extends Controller
 {
     // listage - READ
     public function index()
-    {
-        $evaluations = Evaluation::with('matiere')->get();
-        return view('evaluations.index', compact('evaluations'));
-    }
+{
+    $evaluations = Evaluation::with(['matiere.classe'])
+        ->orderBy('date_evaluation', 'desc')
+        ->get();
+        
+    return view('evaluations.index', compact('evaluations'));
+}
 
     // afficher le formulaire de création(insertion)
     public function create()
@@ -41,13 +47,73 @@ class EvaluationController extends Controller
             'id_matiere' => 'required|exists:matieres,id_matiere',
         ]);
 
-        Evaluation::create($request->all());
+        $evaluation = Evaluation::create($request->all());
 
-        return redirect()->route('evaluations.index')
-            ->with('success', 'Ajout effectué.');
+        //Rediriger vers la page de saisie des notes
+        return redirect()->route('evaluations.saisie', $evaluation->id_evaluation)
+            ->with('success', 'Évaluation créée. Vous pouvez maintenant saisir les notes.');
     }
 
-    // afficher une ressource spécifiée
+    // Afficher la page de saisie des notes
+    public function saisirNotes($id_evaluation)
+    {
+        // Récupérer l'évaluation
+        $evaluation = Evaluation::with('matiere.classe')->findOrFail($id_evaluation);
+        
+        // Récupérer l'année scolaire active
+        $anneeActive = AnneeScolaire::where('active', 1)->first();
+        
+        if (!$anneeActive) {
+            return redirect()->back()->with('error', 'Aucune année scolaire active.');
+        }
+
+        // Récupérer tous les élèves de la classe pour cette année
+        $eleves = Eleve::whereHas('classesAnnees', function($query) use ($evaluation, $anneeActive) {
+                $query->where('id_classe', $evaluation->matiere->id_classe)
+                      ->where('id_annee', $anneeActive->id_annee);
+            })
+            ->orderBy('nom')
+            ->orderBy('prenom')
+            ->get();
+
+        // Récupérer les notes déjà saisies (si modification)
+        $notesExistantes = Note::where('id_evaluation', $id_evaluation)
+            ->pluck('note', 'id_eleve')
+            ->toArray();
+
+        return view('evaluations.saisie', compact('evaluation', 'eleves', 'notesExistantes'));
+    }
+
+    // Enregistrer toutes les notes
+    public function enregistrerNotes(Request $request, $id_evaluation)
+    {
+        $request->validate([
+            'notes' => 'required|array',
+            'notes.*' => 'nullable|numeric|min:0',
+        ]);
+
+        $evaluation = Evaluation::findOrFail($id_evaluation);
+
+        foreach ($request->notes as $id_eleve => $note) {
+            // Ne sauvegarder que si une note a été saisie
+            if ($note !== null && $note !== '') {
+                Note::updateOrCreate(
+                    [
+                        'id_eleve' => $id_eleve,
+                        'id_evaluation' => $id_evaluation
+                    ],
+                    [
+                        'note' => $note
+                    ]
+                );
+            }
+        }
+
+        return redirect()->route('evaluations.index')
+            ->with('success', 'Notes enregistrées avec succès.');
+    }
+
+    // afficher une evaluation spécifiée
     public function show($id_evaluation)
     {
         $evaluation = Evaluation::find($id_evaluation);

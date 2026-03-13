@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<h2>Ajouter une matière</h2>
+<h2>Relevé des notes des élèves</h2>
 
 <form action="{{ route('evaluations.store') }}" method="POST" class="card p-4 shadow-sm">
     @csrf
@@ -60,10 +60,13 @@
         </div>
     </div>
 
-    <div class="col-lg-4">
-        <div class="search-student-btn">
-            <button class="btn btn-success">Enregistrer</button>
-        </div>
+    <div class="d-flex justify-content-between mt-3">
+        <a href="{{ route('evaluations.index') }}" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Annuler
+        </a>
+        <button type="submit" class="btn btn-success">
+            <i class="bi bi-check-circle"></i> Créer l'évaluation et saisir les notes
+        </button>
     </div>
 </form>
 @endsection
