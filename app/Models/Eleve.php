@@ -1,0 +1,60 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Eleve extends Model
+{
+    use HasFactory;
+
+    protected $table = 'eleves';
+
+    protected $primaryKey = 'id_eleve';
+
+    public $incrementing = true;
+
+    protected $keyType = 'int';
+
+    public $timestamps = false; // si ta table n'a pas created_at / updated_at
+
+    protected $fillable = [
+        'matricule',
+        'nom',
+        'prenom',
+        'date_nais',
+        'lieu_nais',
+        'adresse',
+        'genre',
+        'annee_scolaire_entree',
+        'id_parent',
+    ];
+
+    // Relation parent-eleve
+    public function parent()
+    {
+        return $this->belongsTo(StudentParent::class, 'id_parent', 'id_parent');
+    }
+
+    // Relation eleves-classes via affectations_par_classes
+    public function classesAnnees()
+    {
+        return $this->hasMany(AffectationsParClasse::class, 'id_eleve', 'id_eleve');
+    }
+
+    // Récupérer la classe actuelle pour l'année active
+    public function classeActuelle()
+    {
+        $anneeActive = AnneeScolaire::where('active', 1)->first();
+        
+        if (!$anneeActive) {
+            return null;
+        }
+
+        return $this->classesAnnees()
+            ->where('id_annee', $anneeActive->id_annee)
+            ->with('classe')
+            ->first();
+    }
+}
