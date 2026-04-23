@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Evaluation;
-use App\Models\Matiere;
+// use App\Models\Matiere;
 use App\Models\Eleve;
 use App\Models\Note;
 use App\Models\AnneeScolaire;
@@ -24,16 +24,18 @@ class EvaluationController extends Controller
     // afficher le formulaire de création(insertion)
     public function create()
     {
-        $matieres = Matiere::join('classes', 'matieres.id_classe', '=', 'classes.id_classe')
-                ->select(
-                    'matieres.id_matiere',
-                    'matieres.nom_matiere',
-                    'classes.nom_classe'
-                )
-                ->orderBy('classes.nom_classe')
-                ->orderBy('matieres.nom_matiere')
-                ->get();
-        return view('evaluations.create', compact('matieres'));
+        // $matieres = Matiere::join('classes', 'matieres.id_classe', '=', 'classes.id_classe')
+        //         ->select(
+        //             'matieres.id_matiere',
+        //             'matieres.nom_matiere',
+        //             'classes.nom_classe'
+        //         )
+        //         ->orderBy('classes.nom_classe')
+        //         ->orderBy('matieres.nom_matiere')
+        //         ->get();
+        // return view('evaluations.create', compact('matieres'));
+        
+        return view('evaluations.create');
     }
 
     // insertion - CREATE
@@ -43,8 +45,9 @@ class EvaluationController extends Controller
             'type_evaluation' => 'required|string|max:255',
             'date_evaluation' => 'required|date',
             'periode' => 'required|string|max:255',
+            'matiere' => 'required|string|max:255',
             'bareme' => 'required|integer|min:1',
-            'id_matiere' => 'required|exists:matieres,id_matiere',
+            'professeur' => 'required|string|max:255',
         ]);
 
         $evaluation = Evaluation::create($request->all());
@@ -58,7 +61,8 @@ class EvaluationController extends Controller
     public function saisirNotes($id_evaluation)
     {
         // Récupérer l'évaluation
-        $evaluation = Evaluation::with('matiere.classe')->findOrFail($id_evaluation);
+        // $evaluation = Evaluation::with('matiere.classe')->findOrFail($id_evaluation);
+        $evaluation = Evaluation::findOrFail($id_evaluation);
         
         // Récupérer l'année scolaire active
         $anneeActive = AnneeScolaire::where('active', 1)->first();

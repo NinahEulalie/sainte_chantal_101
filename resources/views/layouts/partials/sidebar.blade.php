@@ -32,11 +32,6 @@
             <i class="bi bi-signpost-split-fill me-2"></i> Répartitions classes
         </a>
 
-        <a href="{{ route('matieres.index') }}"
-           class="nav-link {{ request()->routeIs('matieres.*') ? 'active' : '' }}">
-            <i class="bi bi-book-fill me-2"></i> Matières
-        </a>
-
         <a href="{{ route('evaluations.index') }}"
            class="nav-link {{ request()->routeIs('evaluations.*') ? 'active' : '' }}">
             <i class="bi bi-bookmark-star-fill me-2"></i> Evaluations

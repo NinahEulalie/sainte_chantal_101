@@ -5,7 +5,6 @@ use App\Http\Controllers\ParentController;
 use App\Http\Controllers\EleveController;
 use App\Http\Controllers\AnneeController;
 use App\Http\Controllers\ClasseController;
-use App\Http\Controllers\MatiereController;
 use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\ParascolaireController;
 use App\Http\Controllers\AffectationController;
@@ -83,16 +82,6 @@ Route::prefix('affectations')->name('affectations.')->group(function () {
     Route::post('/affecter', [AffectationController::class, 'affecter'])->name('affecter');
     Route::delete('/retirer/{id_eleve}/{id_classe}', [AffectationController::class, 'retirer'])->name('retirer');
 });
-
-
-    // MATIERES
-Route::get('/matieres/index', MatiereController::class .'@index')->name('matieres.index');
-Route::get('/matieres/create', MatiereController::class . '@create')->name('matieres.create');
-Route::post('/matieres', MatiereController::class .'@store')->name('matieres.store');
-Route::get('/matieres/{matiere}', MatiereController::class .'@show')->name('matieres.show');
-Route::get('/matieres/{matiere}/edit', MatiereController::class .'@edit')->name('matieres.edit');
-Route::put('/matieres/{matiere}', MatiereController::class .'@update')->name('matieres.update');
-Route::delete('/matieres/{matiere}', MatiereController::class .'@destroy')->name('matieres.destroy');
 
 
     // EVALUATIONS
