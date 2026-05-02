@@ -5,9 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Matiere;
 use App\Models\Classe;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class MatiereController extends Controller
+class MatiereController extends Controller implements HasMiddleware
 {
+    public static function middleware():array
+    {
+        return [
+            new Middleware('permission:view matieres', only:['index']),
+            new Middleware('permission:create matieres', only:['create']),
+            new Middleware('permission:show matieres', only:['show']),
+            new Middleware('permission:edit matieres', only:['edit']),
+            new Middleware('permission:delete matieres', only:['destroy']),
+        ];
+    }
     // listage - READ
     public function index()
     {

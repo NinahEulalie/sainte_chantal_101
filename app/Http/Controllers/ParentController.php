@@ -4,9 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\StudentParent;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class ParentController extends Controller
+class ParentController extends Controller implements HasMiddleware
 {
+    public static function middleware():array
+    {
+        return [
+            new Middleware('permission:view parents', only:['index']),
+            new Middleware('permission:create parents', only:['create']),
+            new Middleware('permission:show parents', only:['show']),
+            new Middleware('permission:edit parents', only:['edit']),
+            new Middleware('permission:delete parents', only:['destroy']),
+        ];
+    }
     // listage - READ
     public function index()
     {

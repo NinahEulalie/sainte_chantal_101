@@ -4,9 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Parascolaire;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class ParascolaireController extends Controller
+class ParascolaireController extends Controller implements HasMiddleware
 {
+    public static function middleware():array
+    {
+        return [
+            new Middleware('permission:view parascolaires', only:['index']),
+            new Middleware('permission:create parascolaires', only:['create']),
+            new Middleware('permission:show parascolaires', only:['show']),
+            new Middleware('permission:edit parascolaires', only:['edit']),
+            new Middleware('permission:delete parascolaires', only:['destroy']),
+        ];
+    }
     // listage - READ
     public function index()
     {

@@ -5,9 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class PermissionController extends Controller
+class PermissionController extends Controller implements HasMiddleware
 {
+    public static function middleware():array
+    {
+        return [
+            new Middleware('permission:view permissions', only:['index']),
+            new Middleware('permission:create permissions', only:['create']),
+            new Middleware('permission:show permissions', only:['show']),
+            new Middleware('permission:edit permissions', only:['edit']),
+            new Middleware('permission:delete permissions', only:['destroy']),
+        ];
+    }
     //show permissions page
     public function index()
     {   $permissions = Permission::orderBy('created_at', 'DESC')->paginate(10);
@@ -49,7 +61,7 @@ class PermissionController extends Controller
         $validator = Validator::make($request->all(),[
             'name' => 'required|unique:permissions,name,'.$id.',id|min:3'
         ]);
-
+        
         if ($validator->passes()){
             $permission->name = $request->name;
             $permission->save();

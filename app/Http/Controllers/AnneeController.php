@@ -4,9 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\AnneeScolaire;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class AnneeController extends Controller
+class AnneeController extends Controller implements HasMiddleware
 {
+    public static function middleware():array
+    {
+        return [
+            new Middleware('permission:view anneescolaires', only:['index']),
+            new Middleware('permission:create anneescolaires', only:['create']),
+            new Middleware('permission:show anneescolaires', only:['show']),
+            new Middleware('permission:edit anneescolaires', only:['edit']),
+            new Middleware('permission:delete anneescolaires', only:['destroy']),
+        ];
+    }
     // listage - READ
     public function index()
     {

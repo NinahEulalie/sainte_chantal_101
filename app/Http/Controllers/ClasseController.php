@@ -4,9 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Classe;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class ClasseController extends Controller
+class ClasseController extends Controller implements HasMiddleware
 {
+    public static function middleware():array
+    {
+        return [
+            new Middleware('permission:view classes', only:['index']),
+            new Middleware('permission:create classes', only:['create']),
+            new Middleware('permission:show classes', only:['show']),
+            new Middleware('permission:edit classes', only:['edit']),
+            new Middleware('permission:delete classes', only:['destroy']),
+        ];
+    }
     // listage - READ
     public function index()
     {

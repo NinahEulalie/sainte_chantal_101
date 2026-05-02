@@ -115,7 +115,7 @@ background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244
                     data-mdb-ripple-init class="btn btn-outline-light btn-lg w-100">Register</button>
                 </div>
 
-                <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="{{route('show.login')}}"
+                <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="{{route('login')}}"
                     class="fw-bold text-primary"><u>Login here</u></a></p>
 
               </form>

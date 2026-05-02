@@ -32,6 +32,7 @@
     </div>
 </div> <br><br>
 
+@can('create eleves')
 <div class="col-lg-2">
     <div class="search-student-btn">
         <a href="{{ route('eleves.create') }}" class="btn btn-primary mb-3">
@@ -39,6 +40,7 @@
         </a>
     </div>
 </div> <br>
+@endcan
 
 <div class="table-responsive">
     <table

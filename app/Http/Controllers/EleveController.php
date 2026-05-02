@@ -5,9 +5,22 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Eleve;
 use App\Models\StudentParent;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class EleveController extends Controller
+
+class EleveController extends Controller implements HasMiddleware
 {
+    public static function middleware():array
+    {
+        return [
+            new Middleware('permission:view eleves', only:['index']),
+            new Middleware('permission:create eleves', only:['create']),
+            new Middleware('permission:show eleves', only:['show']),
+            new Middleware('permission:edit eleves', only:['edit']),
+            new Middleware('permission:delete eleves', only:['destroy']),
+        ];
+    }
     // listage - READ
     public function index()
     {
@@ -59,10 +72,10 @@ class EleveController extends Controller
         return view('eleves.edit', compact('eleve','parents'));
     }
 
-    // modification - UPDATE
     public function update(Request $request, $id_eleve)
-    {
-        $request->validate([
+    {   
+        $eleve = Eleve::findOrFail($id_eleve);
+        $validator = validator([
             'matricule' => 'required|string|unique:eleves,matricule',
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string',
@@ -73,8 +86,6 @@ class EleveController extends Controller
             'annee_scolaire_entree' => 'required|string|max:255',
             'id_parent' => 'required|exists:parents,id_parent',
         ]);
-
-        $eleve = Eleve::find($id_eleve);
         $eleve->update($request->all());
 
         return redirect()->route('eleves.index')

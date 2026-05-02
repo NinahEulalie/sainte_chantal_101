@@ -8,9 +8,21 @@ use App\Models\Eleve;
 use App\Models\Note;
 use App\Models\AnneeScolaire;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class EvaluationController extends Controller
+class EvaluationController extends Controller implements HasMiddleware
 {
+    public static function middleware():array
+    {
+        return [
+            new Middleware('permission:view evaluation', only:['index']),
+            new Middleware('permission:create evaluation', only:['create']),
+            new Middleware('permission:show evaluation', only:['show']),
+            new Middleware('permission:edit evaluation', only:['edit']),
+            new Middleware('permission:delete evaluation', only:['destroy']),
+        ];
+    }
     // listage - READ
     public function index()
 {

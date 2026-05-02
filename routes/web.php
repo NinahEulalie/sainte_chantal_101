@@ -12,10 +12,11 @@ use App\Http\Controllers\AffectationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 
-Route::get('/', function () {
+Route::get('/home', function () {
     return view('home');
-})->name('home');
+})->name('home')->middleware('auth');
 
 Route::get('/ecolage', function () {
     return view('maintenance');
@@ -31,9 +32,8 @@ Route::get('/register',[AuthController::class, 'showRegister'])->name('show.regi
 Route::post('/register',[AuthController::class, 'register'])->name('register');
 
 //login
-Route::get('/login',[AuthController::class, 'showLogin'])->name('show.login');
-Route::post('/login',[AuthController::class, 'login'])->name('login');
-
+Route::get('/',[AuthController::class, 'showLogin'])->name('login');
+Route::post('/login',[AuthController::class, 'login'])->name('auth.login');
 //logout
 Route::post('/logout',[AuthController::class, 'logout'])->name('logout');
 
@@ -150,3 +150,11 @@ Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
 Route::get('/roles/{id}/edit', [RoleController::class, 'edit'])->name('roles.edit');
 Route::post('/roles/{id}', [RoleController::class, 'update'])->name('roles.update');
 Route::delete('/roles', [RoleController::class, 'destroy'])->name('roles.destroy');
+
+// USERS
+Route::get('/users/list', [UserController::class, 'index'])->name('users.list');
+// Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');
+// Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
+Route::get('/users/{id}/edit/', [UserController::class, 'edit'])->name('users.edit');
+Route::post('/users/{id}', [UserController::class, 'update'])->name('users.update');
+Route::delete('/users', [UserController::class, 'destroy'])->name('users.destroy');

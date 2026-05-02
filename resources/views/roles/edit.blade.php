@@ -99,7 +99,7 @@
                         <div class="form-check">
                             <input 
                                 {{ ($hasPermissions->contains($permission->name) ? 'checked' : '')}}
-                                class="form-check-input"
+                                class="form-check-input border-dark"
                                 type="checkbox" 
                                 name="permissions[]" 
                                 id="permission-{{ $permission->id }}"

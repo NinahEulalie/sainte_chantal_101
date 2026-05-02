@@ -42,7 +42,7 @@ class AuthController extends Controller
             return redirect()->intended(route("home"));
         }
 
-        return redirect()->route('show.login')->onlyInput('email');
+        return redirect()->route('login')->onlyInput('email');
     }
 
     public function logout(Request $request)
@@ -50,7 +50,7 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('show.login');
+        return redirect()->route('login');
     }
     
 }

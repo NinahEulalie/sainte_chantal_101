@@ -29,10 +29,14 @@
 
     <td class="text-end">
         <div class="actions">
+            @can('show eleves')                
             <a href="{{ route('eleves.show', $eleve->id_eleve) }}" class="btn btn-sm btn-info">
                 <i class="bi bi-eye me-1"></i> Voir</a>
+            @endcan
+            @can('edit eleves')                
             <a href="{{ route('eleves.edit', $eleve->id_eleve) }}" class="btn btn-sm btn-warning">
                 <i class="bi bi-pencil-square me-1"></i> Modifier</a>
+            @endcan
          </div>
     </td>
 </tr>
