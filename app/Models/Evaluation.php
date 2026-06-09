@@ -26,13 +26,14 @@ class Evaluation extends Model
         'matiere',
         'bareme',
         'professeur',
+        'id_classe',
     ];
 
-    // Relation matiere-evaluation
-    // public function matiere()
-    // {
-    //     return $this->belongsTo(Matiere::class, 'id_matiere', 'id_matiere');
-    // }
+    // Relation classe-evaluation
+    public function classe()
+    {
+        return $this->belongsTo(Classe::class, 'id_classe', 'id_classe');
+    }
 
     // Relation note-evaluation
     public function notes()

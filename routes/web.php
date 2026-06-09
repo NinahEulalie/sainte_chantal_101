@@ -6,8 +6,9 @@ use App\Http\Controllers\EleveController;
 use App\Http\Controllers\AnneeController;
 use App\Http\Controllers\ClasseController;
 use App\Http\Controllers\EvaluationController;
-use App\Http\Controllers\ParascolaireController;
 use App\Http\Controllers\AffectationController;
+use App\Http\Controllers\EcolageController;
+use App\Http\Controllers\ParascolaireController;
 
 
 Route::get('/', function () {
@@ -100,6 +101,15 @@ Route::get('/evaluations/{id_evaluation}/saisie', [EvaluationController::class, 
 Route::post('/evaluations/{id_evaluation}/enregistrer', [EvaluationController::class, 'enregistrerNotes'])
     ->name('evaluations.enregistrer');
 
+
+ // ECOLAGES
+Route::get('/ecolages/index', EcolageController::class .'@index')->name('ecolages.index');
+Route::get('/ecolages/create', EcolageController::class .'@create')->name('ecolages.create');
+Route::post('/ecolages', EcolageController::class .'@store')->name('ecolages.store');
+Route::get('/ecolages/{ecolage}', EcolageController::class .'@show')->name('ecolages.show');
+Route::get('/ecolages/{ecolage}/edit', EcolageController::class .'@edit')->name('ecolages.edit');
+Route::put('/ecolages/{ecolage}', EcolageController::class .'@update')->name('ecolages.update');
+   
 
 // PARASCOLAIRES
 Route::get('/parascolaires/index', ParascolaireController::class .'@index')->name('parascolaires.index');

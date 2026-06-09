@@ -27,6 +27,7 @@
                             <th>Date</th>
                             <th>Matière</th>
                             <th>Classe</th>
+                            <th>Professeur en charge</th>
                             <th>Type</th>
                             <th>Période</th>
                             <th>Barème</th>
@@ -37,8 +38,9 @@
                         @forelse($evaluations as $evaluation)
                             <tr>
                                 <td>{{ \Carbon\Carbon::parse($evaluation->date_evaluation)->format('d/m/Y') }}</td>
-                                <td>{{ $evaluation->matiere->nom_matiere }}</td>
-                                <td>{{ $evaluation->matiere->classe->nom_classe }}</td>
+                                <td>{{ $evaluation->matiere }}</td>
+                                <td>{{ $evaluation->classe?->nom_classe ?? 'Non définie' }}</td>
+                                <td>{{ $evaluation->professeur }}</td>
                                 <td>{{ $evaluation->type_evaluation }}</td>
                                 <td>{{ $evaluation->periode }}</td>
                                 <td>/{{ $evaluation->bareme }}</td>

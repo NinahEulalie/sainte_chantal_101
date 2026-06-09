@@ -24,10 +24,10 @@ class Classe extends Model
         'niveau'
     ];
 
-    // Relation classe-matiere
-    public function matiere()
+    // Relation classe-evaluation
+    public function evaluation()
     {
-        return $this->hasMany(Matiere::class, 'id_classe', 'id_classe');
+        return $this->hasMany(Evaluation::class, 'id_classe', 'id_classe');
     }
 
     public function elevesAnnees()

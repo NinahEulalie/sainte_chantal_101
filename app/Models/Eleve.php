@@ -57,4 +57,10 @@ class Eleve extends Model
             ->with('classe')
             ->first();
     }
+
+    // Relation ecolage-eleve
+    public function ecolage()
+    {
+        return $this->hasMany(Ecolage::class, 'id_eleve', 'id_eleve');
+    }
 }

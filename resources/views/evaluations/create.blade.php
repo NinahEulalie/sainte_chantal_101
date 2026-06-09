@@ -48,12 +48,23 @@
 
         <div class="col-md-6 mb-3">
             <label class="form-label"> Matière évaluée *</label>
-            <select name="id_matiere" class="form-select" required>
-                <option selected disabled>-- Sélectionner la matière --</option>
-                @foreach ($matieres as $matiere)
-                    <option value="{{ $matiere->id_matiere }}"
-                        {{ old('id_matiere') == $matiere->id_matiere ? 'selected' : '' }}>
-                        {{ $matiere->nom_matiere }} — {{ $matiere->nom_classe }}
+            <input type="text" name="matiere" class="form-control" required>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label class="form-label"> Professeur en charge *</label>
+            <input type="text" name="professeur" class="form-control" required>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label>Classe concernée *</label>
+
+            <select name="id_classe" class="form-select" required>
+                <option value="">-- Choisir une classe --</option>
+
+                @foreach($classes as $classe)
+                    <option value="{{ $classe->id_classe }}">
+                        {{ $classe->nom_classe }}
                     </option>
                 @endforeach
             </select>

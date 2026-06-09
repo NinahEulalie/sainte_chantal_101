@@ -17,7 +17,7 @@
                 <input type="text" class="form-control" placeholder="Rechercher par nom ...">
             </div>
         </div>
-        <div class="col-lg-4 col-md-6">
+        <div class="col-lg-3 col-md-6">
             <div class="form-group">
                 <input type="text" class="form-control" placeholder="Rechercher par téléphone ...">
             </div>

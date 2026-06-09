@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Evaluation;
-// use App\Models\Matiere;
+use App\Models\Classe;
 use App\Models\Eleve;
 use App\Models\Note;
 use App\Models\AnneeScolaire;
@@ -14,7 +14,7 @@ class EvaluationController extends Controller
     // listage - READ
     public function index()
 {
-    $evaluations = Evaluation::with(['matiere.classe'])
+    $evaluations = Evaluation::with(['classe'])
         ->orderBy('date_evaluation', 'desc')
         ->get();
         
@@ -24,18 +24,9 @@ class EvaluationController extends Controller
     // afficher le formulaire de création(insertion)
     public function create()
     {
-        // $matieres = Matiere::join('classes', 'matieres.id_classe', '=', 'classes.id_classe')
-        //         ->select(
-        //             'matieres.id_matiere',
-        //             'matieres.nom_matiere',
-        //             'classes.nom_classe'
-        //         )
-        //         ->orderBy('classes.nom_classe')
-        //         ->orderBy('matieres.nom_matiere')
-        //         ->get();
-        // return view('evaluations.create', compact('matieres'));
+        $classes = Classe::orderBy('nom_classe')->get();
         
-        return view('evaluations.create');
+        return view('evaluations.create', compact('classes'));
     }
 
     // insertion - CREATE
@@ -48,6 +39,7 @@ class EvaluationController extends Controller
             'matiere' => 'required|string|max:255',
             'bareme' => 'required|integer|min:1',
             'professeur' => 'required|string|max:255',
+            'id_classe' => 'required|exists:classes,id_classe',
         ]);
 
         $evaluation = Evaluation::create($request->all());
@@ -73,7 +65,7 @@ class EvaluationController extends Controller
 
         // Récupérer tous les élèves de la classe pour cette année
         $eleves = Eleve::whereHas('classesAnnees', function($query) use ($evaluation, $anneeActive) {
-                $query->where('id_classe', $evaluation->matiere->id_classe)
+                $query->where('id_classe', $evaluation->id_classe)
                       ->where('id_annee', $anneeActive->id_annee);
             })
             ->orderBy('nom')
@@ -139,8 +131,10 @@ class EvaluationController extends Controller
             'type_evaluation' => 'required|string|max:255',
             'date_evaluation' => 'required|date',
             'periode' => 'required|string|max:255',
+            'matiere' => 'required|string|max:255',
             'bareme' => 'required|integer|min:1',
-            'id_matiere' => 'required|exists:matieres,id_matiere',
+            'professeur' => 'required|string|max:255',
+            'id_classe' => 'required|exists:classes,id_classe',
         ]);
 
         $evaluation = Evaluation::find($id_evaluation);

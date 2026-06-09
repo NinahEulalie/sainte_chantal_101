@@ -42,4 +42,11 @@ class AnneeScolaire extends Model
     {
         return self::where('active', 1)->first();
     }
+
+    // relation ecolage-anneeScolaire
+    public function ecolage()
+    {
+        return $this->hasMany(Ecolage::class, 'id_annee', 'id_annee');
+    }
+
 }

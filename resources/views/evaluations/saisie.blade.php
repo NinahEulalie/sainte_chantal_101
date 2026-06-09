@@ -7,7 +7,7 @@
             <h2>Saisie des notes</h2>
             <div class="card mb-3">
                 <div class="card-body">
-                    <h5 class="card-title">{{ $evaluation->matiere->nom_matiere }} - {{ $evaluation->matiere->classe->nom_classe }}</h5>
+                    <h5 class="card-title">{{ $evaluation->matiere }} - {{ $evaluation->classe->nom_classe }}</h5>
                     <p class="mb-1"><strong>Type :</strong> {{ $evaluation->type_evaluation }}</p>
                     <p class="mb-1"><strong>Date :</strong> {{ \Carbon\Carbon::parse($evaluation->date_evaluation)->format('d/m/Y') }}</p>
                     <p class="mb-1"><strong>Période :</strong> {{ $evaluation->periode }}</p>
@@ -29,7 +29,7 @@
                 <div class="card-header bg-primary text-white">
                     <h5 class="mb-0">
                         <i class="bi bi-pencil-square"></i> 
-                        Élèves de {{ $evaluation->matiere->classe->nom_classe }} ({{ $eleves->count() }} élèves)
+                        Élèves de {{ $evaluation->classe->nom_classe }} ({{ $eleves->count() }} élèves)
                     </h5>
                 </div>
                 <div class="card-body">

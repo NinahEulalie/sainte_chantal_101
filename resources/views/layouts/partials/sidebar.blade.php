@@ -42,8 +42,8 @@
             <i class="bi bi-palette-fill me-2"></i> Parascolaires
         </a>
 
-        <a href="{{ route('ecolage') }}"
-           class="nav-link {{ request()->routeIs('ecolage') ? 'active' : '' }}">
+        <a href="{{ route('ecolages.index') }}"
+           class="nav-link {{ request()->routeIs('ecolages.*') ? 'active' : '' }}">
             <i class="bi bi-cash-stack me-2"></i> Ecolage
         </a>
 
